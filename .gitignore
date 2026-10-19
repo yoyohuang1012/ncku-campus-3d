@@ -1,0 +1,6 @@
+node_modules/
+dist/
+tools/osm/raw/
+*.log
+.claude/
+繳交內容.md

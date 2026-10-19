@@ -1,0 +1,115 @@
+:root {
+  --panel: rgba(22, 26, 33, 0.82);
+  --panel-solid: #1c2128;
+  --text: #f1f3f5;
+  --muted: #aab2bd;
+  --accent: #19c3e6;
+  --accent-dark: #0f8fab;
+  --warn: #f59f00;
+  --radius: 12px;
+  --gutter: 12px;
+  font-family: system-ui, -apple-system, 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: #bcd6ec; color: var(--text); }
+body { touch-action: none; user-select: none; -webkit-user-select: none; }
+#game { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+#ui { position: fixed; inset: 0; pointer-events: none; }
+#ui > * { pointer-events: auto; }
+.hidden { display: none !important; }
+button { font: inherit; color: inherit; cursor: pointer; border: none; }
+
+/* 載入畫面 */
+#loading { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: #1c2128; z-index: 100; }
+.loading-title { font-size: 26px; font-weight: 700; letter-spacing: 2px; }
+#loading-text { color: var(--muted); }
+
+/* 左上角狀態列 */
+.hud-box { position: absolute; top: calc(var(--gutter) + env(safe-area-inset-top)); left: calc(var(--gutter) + env(safe-area-inset-left)); background: var(--panel); border-radius: var(--radius); padding: 10px 14px; min-width: 150px; backdrop-filter: blur(6px); }
+.hud-region { font-size: 18px; font-weight: 700; }
+.hud-time { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.hud-buttons { margin-top: 8px; display: flex; gap: 6px; }
+.hud-btn { background: rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 10px; font-size: 13px; }
+.hud-btn:hover { background: rgba(255,255,255,0.2); }
+.hud-help { position: absolute; bottom: var(--gutter); left: 50%; transform: translateX(-50%); background: var(--panel); border-radius: 999px; padding: 6px 14px; font-size: 12px; color: var(--muted); pointer-events: none !important; white-space: nowrap; }
+.osm-credit { position: absolute; bottom: 4px; right: 8px; font-size: 10px; color: rgba(0,0,0,0.55); pointer-events: none !important; }
+
+/* 小地圖 */
+.minimap-small { position: absolute; top: calc(var(--gutter) + env(safe-area-inset-top)); right: calc(var(--gutter) + env(safe-area-inset-right)); border-radius: 50%; border: 3px solid rgba(255,255,255,0.9); box-shadow: 0 2px 10px rgba(0,0,0,0.35); cursor: pointer; overflow: hidden; }
+.minimap-small canvas { width: 100%; height: 100%; display: block; }
+.minimap-label { position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); background: var(--panel); font-size: 11px; padding: 2px 8px; border-radius: 999px; }
+.map-overlay { position: absolute; inset: 0; background: #8f8c85; z-index: 20; }
+.map-canvas { position: absolute; inset: 0; touch-action: none; cursor: grab; }
+.map-close { position: absolute; top: calc(var(--gutter) + env(safe-area-inset-top)); right: var(--gutter); background: var(--panel); border-radius: 999px; padding: 8px 16px; }
+.map-hint { position: absolute; top: calc(var(--gutter) + env(safe-area-inset-top)); left: var(--gutter); right: 120px; background: var(--panel); border-radius: 999px; padding: 8px 14px; font-size: 13px; color: var(--muted); pointer-events: none; width: fit-content; }
+.map-popup { position: absolute; background: var(--panel-solid); border-radius: var(--radius); padding: 10px; display: flex; flex-direction: column; gap: 6px; min-width: 170px; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+.map-popup-title { font-weight: 700; margin-bottom: 2px; }
+.map-popup-btn { background: var(--accent-dark); border-radius: 8px; padding: 7px 10px; text-align: left; }
+.map-popup-btn:hover { background: var(--accent); }
+
+/* 導航橫幅 */
+.route-banner { position: absolute; top: calc(var(--gutter) + env(safe-area-inset-top)); left: 50%; transform: translateX(-50%); background: var(--accent-dark); border-radius: 999px; padding: 6px 6px 6px 16px; display: flex; align-items: center; gap: 10px; font-size: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); max-width: calc(100vw - 2 * var(--gutter) - 380px); white-space: nowrap; overflow: hidden; }
+.route-banner span { overflow: hidden; text-overflow: ellipsis; }
+.route-cancel { background: rgba(0,0,0,0.25); border-radius: 999px; padding: 5px 12px; font-size: 13px; flex-shrink: 0; }
+
+.toast { position: absolute; top: 30%; left: 50%; transform: translateX(-50%); background: var(--panel); padding: 10px 20px; border-radius: 999px; font-size: 15px; pointer-events: none !important; }
+.talk-hint { position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%); background: var(--panel); padding: 8px 16px; border-radius: 999px; font-size: 14px; pointer-events: none !important; }
+
+/* 浮動標籤 */
+.labels { position: absolute; inset: 0; pointer-events: none !important; overflow: hidden; }
+.label { position: absolute; left: 0; top: 0; text-align: center; white-space: nowrap; will-change: transform; }
+.label-name { background: rgba(22, 26, 33, 0.72); padding: 3px 9px; border-radius: 6px; font-size: 13px; font-weight: 600; }
+.label-sub { font-size: 11px; color: #1c2128; text-shadow: 0 0 3px #fff, 0 0 3px #fff; margin-top: 1px; }
+.label-npc .label-name { background: rgba(245, 159, 0, 0.9); color: #1c2128; }
+
+/* 搜尋 */
+.search-panel { position: absolute; top: calc(var(--gutter) + env(safe-area-inset-top)); left: calc(var(--gutter) + env(safe-area-inset-left)); width: min(380px, calc(100vw - 2 * var(--gutter))); max-height: calc(100vh - 2 * var(--gutter)); background: var(--panel-solid); border-radius: var(--radius); display: flex; flex-direction: column; z-index: 15; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+.search-head { display: flex; gap: 6px; padding: 10px; }
+.search-input { flex: 1; min-width: 0; font: inherit; font-size: 16px; padding: 9px 12px; border-radius: 8px; border: 1px solid #3a414b; background: #12161b; color: var(--text); outline: none; user-select: text; -webkit-user-select: text; }
+.search-input:focus { border-color: var(--accent); }
+.search-close { background: rgba(255,255,255,0.1); border-radius: 8px; padding: 0 12px; }
+.search-list { overflow-y: auto; padding: 0 6px 8px; }
+.search-item { display: flex; align-items: center; gap: 4px; border-radius: 8px; }
+.search-item:hover { background: rgba(255,255,255,0.06); }
+.search-item-main { flex: 1; min-width: 0; text-align: left; background: none; padding: 8px; }
+.search-item-name { font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.search-item-sub { font-size: 12px; color: var(--muted); }
+.search-item-btn { background: var(--accent-dark); border-radius: 6px; padding: 5px 9px; font-size: 12px; flex-shrink: 0; }
+.search-item-btn.secondary, .bi-btn.secondary { background: rgba(255,255,255,0.14); }
+.search-empty { color: var(--muted); padding: 12px; font-size: 14px; }
+
+/* 建築資訊 */
+.building-info { position: absolute; left: calc(var(--gutter) + env(safe-area-inset-left)); bottom: calc(var(--gutter) + 40px); width: min(320px, calc(100vw - 2 * var(--gutter))); max-height: 50vh; overflow-y: auto; background: var(--panel-solid); border-radius: var(--radius); padding: 12px 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); z-index: 10; }
+.bi-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.bi-name { font-size: 17px; font-weight: 700; }
+.bi-close { background: none; color: var(--muted); padding: 0 4px; font-size: 16px; }
+.bi-sub { color: var(--muted); font-size: 13px; margin-top: 2px; }
+.bi-section { margin-top: 10px; font-size: 13px; font-weight: 600; }
+.bi-rooms { font-size: 13px; margin-top: 4px; display: grid; gap: 2px; }
+.bi-empty { color: var(--muted); font-size: 13px; margin-top: 4px; }
+.bi-actions { display: flex; gap: 6px; margin-top: 12px; }
+.bi-btn { flex: 1; background: var(--accent-dark); border-radius: 8px; padding: 8px; }
+
+/* 對話 */
+.dialogue { position: absolute; left: 50%; bottom: calc(var(--gutter) + env(safe-area-inset-bottom)); transform: translateX(-50%); width: min(560px, calc(100vw - 2 * var(--gutter))); background: var(--panel-solid); border-radius: var(--radius); padding: 14px 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.45); z-index: 30; }
+.dialogue-name { color: var(--warn); font-weight: 700; font-size: 14px; }
+.dialogue-text { font-size: 16px; line-height: 1.6; margin: 6px 0 12px; }
+.dialogue-choices { display: flex; flex-direction: column; gap: 6px; }
+.dialogue-choice { text-align: left; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 9px 12px; font-size: 15px; }
+.dialogue-choice:hover { background: var(--accent-dark); }
+
+/* 觸控 */
+.joystick { position: absolute; left: 30px; bottom: 40px; width: 110px; height: 110px; border-radius: 50%; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.35); pointer-events: none !important; opacity: 0.6; }
+.joystick.active { opacity: 1; }
+.joystick-knob { position: absolute; left: 30px; top: 30px; width: 50px; height: 50px; border-radius: 50%; background: rgba(255,255,255,0.7); }
+.touch-btn { position: absolute; background: var(--panel); border-radius: 999px; padding: 10px 16px; font-size: 14px; }
+.run-btn { right: calc(var(--gutter) + env(safe-area-inset-right)); bottom: calc(var(--gutter) + 10px); }
+.run-btn.active { background: var(--accent-dark); }
+.talk-btn { right: calc(var(--gutter) + env(safe-area-inset-right)); bottom: 70px; background: var(--warn); color: #1c2128; font-weight: 700; }
+
+@media (max-width: 640px) {
+  .hud-box { padding: 8px 10px; min-width: 0; }
+  .hud-region { font-size: 15px; }
+  .route-banner { top: auto; bottom: 120px; max-width: calc(100vw - 2 * var(--gutter)); font-size: 13px; }
+}

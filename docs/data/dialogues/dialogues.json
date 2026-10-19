@@ -1,0 +1,88 @@
+{
+  "_comment": [
+    "對話樹。每段對話有 start（起始節點）與 nodes。",
+    "節點：text（i18n key）、choices（選項陣列）。沒有 choices 的節點顯示「結束」。",
+    "選項：text（i18n key）、next（下一個節點 id）、action（選填，執行動作）。",
+    "可用 action：",
+    "  {\"type\":\"navigate\",\"target\":\"建築id 或 region:光復校區id\"}  開始路線導航",
+    "  {\"type\":\"teleport\",\"target\":\"建築id\"}                        傳送到建築旁",
+    "  {\"type\":\"end\"}                                                   結束對話",
+    "之後要加小遊戲，只要在程式的 action 註冊表新增一種 type。"
+  ],
+  "dialogues": {
+    "senior_guide_intro": {
+      "start": "hello",
+      "nodes": {
+        "hello": {
+          "text": "dlg.senior.hello",
+          "choices": [
+            { "text": "dlg.senior.ask_guangfu", "next": "guangfu" },
+            { "text": "dlg.senior.ask_library", "next": "library" },
+            { "text": "dlg.senior.ask_lixing", "next": "lixing" },
+            { "text": "dlg.common.bye", "action": { "type": "end" } }
+          ]
+        },
+        "guangfu": {
+          "text": "dlg.senior.guangfu",
+          "choices": [
+            { "text": "dlg.common.guide_me", "action": { "type": "navigate", "target": "osm-w251597489" } },
+            { "text": "dlg.common.back", "next": "hello" }
+          ]
+        },
+        "library": {
+          "text": "dlg.senior.library",
+          "choices": [
+            { "text": "dlg.common.guide_me", "action": { "type": "navigate", "target": "osm-w251596111" } },
+            { "text": "dlg.common.back", "next": "hello" }
+          ]
+        },
+        "lixing": {
+          "text": "dlg.senior.lixing",
+          "choices": [
+            { "text": "dlg.common.guide_me", "action": { "type": "navigate", "target": "osm-w252925607" } },
+            { "text": "dlg.common.back", "next": "hello" }
+          ]
+        }
+      }
+    },
+    "dancer_evening": {
+      "start": "hello",
+      "nodes": {
+        "hello": {
+          "text": "dlg.dancer.hello",
+          "choices": [
+            { "text": "dlg.dancer.ask_join", "next": "join" },
+            { "text": "dlg.common.bye", "action": { "type": "end" } }
+          ]
+        },
+        "join": { "text": "dlg.dancer.join" }
+      }
+    },
+    "club_recruiter_day": {
+      "start": "hello",
+      "nodes": {
+        "hello": {
+          "text": "dlg.club.hello",
+          "choices": [
+            { "text": "dlg.club.ask_what", "next": "what" },
+            { "text": "dlg.common.bye", "action": { "type": "end" } }
+          ]
+        },
+        "what": { "text": "dlg.club.what" }
+      }
+    },
+    "library_volunteer": {
+      "start": "hello",
+      "nodes": {
+        "hello": {
+          "text": "dlg.library.hello",
+          "choices": [
+            { "text": "dlg.library.ask_hours", "next": "hours" },
+            { "text": "dlg.common.bye", "action": { "type": "end" } }
+          ]
+        },
+        "hours": { "text": "dlg.library.hours" }
+      }
+    }
+  }
+}

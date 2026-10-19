@@ -1,0 +1,56 @@
+{
+  "_comment": [
+    "OSM 上沒有、從國土測繪中心 2023 年正射航照描出來的建築。座標是遊戲本地座標（公尺，x 向東、z 向南）。",
+    "形狀三選一：",
+    "  outline：多邊形頂點 [[x,z],...]",
+    "  circle：{\"center\":[x,z],\"radius\":r}",
+    "  rect + split：[x0,z0,x1,z1] 的街區，沿 along（x 或 z）切成每戶 unit 公尺寬的透天厝；levels 為 [最少, 最多] 樓層，每戶隨機",
+    "街屋排中，落在道路上或與 OSM 既有建築重疊的戶會自動略過。",
+    "approx: true 代表位置或高度是估計值，之後有更好的資料要修正。",
+    "修改後執行 npm run osm:build 重新產生世界資料。"
+  ],
+  "buildings": [
+    {
+      "id": "trace-shangrila-tower",
+      "name": "香格里拉台南遠東國際大飯店",
+      "aliases": ["香格里拉", "遠東飯店", "遠百"],
+      "type": "hotel",
+      "levels": 38,
+      "height": 140,
+      "circle": { "center": [-448, 256], "radius": 22 },
+      "approx": true,
+      "note": "高度 140m／38 層（維基百科）。航照中高樓會傾斜，塔樓底部位置為估計。"
+    },
+    {
+      "id": "trace-shangrila-podium",
+      "name": "香格里拉台南遠東國際大飯店（低樓層）",
+      "type": "retail",
+      "levels": 7,
+      "height": 30,
+      "outline": [[-484, 200], [-386, 200], [-386, 288], [-484, 288]],
+      "approx": true
+    },
+
+    { "id": "trace-qianfeng-e1", "rect": [-508, 238, -488, 300], "split": { "along": "z", "unit": 6 }, "levels": [3, 6] },
+    { "id": "trace-qianfeng-e2", "rect": [-520, 302, -492, 360], "split": { "along": "z", "unit": 6 }, "levels": [3, 5] },
+    { "id": "trace-hotel-s1", "rect": [-489, 300, -452, 325], "split": { "along": "x", "unit": 5 }, "levels": [3, 6] },
+    { "id": "trace-hotel-s2", "rect": [-489, 325, -452, 350], "split": { "along": "x", "unit": 5 }, "levels": [3, 5] },
+    { "id": "trace-hotel-s3", "rect": [-446, 302, -404, 326], "split": { "along": "x", "unit": 5 }, "levels": [3, 6] },
+    { "id": "trace-hotel-s4", "rect": [-446, 326, -404, 350], "split": { "along": "x", "unit": 5 }, "levels": [3, 5] },
+    { "id": "trace-hotel-s5", "rect": [-402, 306, -384, 350], "split": { "along": "z", "unit": 8 }, "levels": [5, 8] },
+
+    { "id": "trace-daxue-s1", "rect": [-290, 320, -182, 345], "split": { "along": "x", "unit": 6 }, "levels": [3, 6] },
+    { "id": "trace-daxue-s2", "rect": [-176, 238, -160, 326], "split": { "along": "z", "unit": 6 }, "levels": [3, 5] },
+
+    { "id": "trace-yule-n", "rect": [-150, 243, -60, 262], "split": { "along": "x", "unit": 5 }, "levels": [3, 6] },
+    { "id": "trace-yule-e", "rect": [-58, 262, -46, 345], "split": { "along": "z", "unit": 5 }, "levels": [3, 5] },
+    { "id": "trace-yule-r1", "rect": [-152, 264, -62, 290], "split": { "along": "x", "unit": 5 }, "levels": [3, 5] },
+    { "id": "trace-yule-r2", "rect": [-152, 292, -62, 318], "split": { "along": "x", "unit": 5 }, "levels": [3, 5] },
+    { "id": "trace-yule-r3", "rect": [-152, 320, -62, 348], "split": { "along": "x", "unit": 5 }, "levels": [3, 5] },
+
+    { "id": "trace-lixing-n1", "rect": [-310, -628, -60, -606], "split": { "along": "x", "unit": 5 }, "levels": [3, 6] },
+    { "id": "trace-lixing-n2", "rect": [-300, -662, -60, -632], "split": { "along": "x", "unit": 6 }, "levels": [3, 5] },
+    { "id": "trace-lixing-n3", "rect": [-300, -700, -60, -666], "split": { "along": "x", "unit": 6 }, "levels": [3, 5] },
+    { "id": "trace-lixing-n4", "rect": [-300, -738, -60, -704], "split": { "along": "x", "unit": 6 }, "levels": [3, 6] }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "_comment": "遊戲手感與畫質設定。全部可以直接調整，不需要改程式。",
+  "player": {
+    "walkSpeed": 3.5,
+    "runSpeed": 7.5,
+    "radius": 0.35,
+    "turnSpeed": 10,
+    "model": null
+  },
+  "camera": {
+    "fov": 60,
+    "distance": 6,
+    "minDistance": 2,
+    "maxDistance": 18,
+    "height": 1.6,
+    "minPitch": -0.15,
+    "maxPitch": 1.2,
+    "mouseSensitivity": 0.005,
+    "touchSensitivity": 0.008
+  },
+  "render": {
+    "far": 1600,
+    "fogNear": 250,
+    "fogFar": 900,
+    "maxPixelRatio": 2,
+    "mobileMaxPixelRatio": 1.5,
+    "shadows": true,
+    "mobileShadows": false,
+    "shadowRange": 90
+  },
+  "ground": {
+    "_comment": "mode: ortho = 地面貼國土測繪中心航照；flat = 色塊。zoom 19 較清楚（約 0.3 公尺/像素），手機用 18 省記憶體。drawWater：航照模式下也畫水面、池岸與跨水小橋",
+    "mode": "ortho",
+    "zoom": 19,
+    "mobileZoom": 18,
+    "drawRoads": true,
+    "drawAreas": true,
+    "drawWater": true
+  },
+  "labels": {
+    "maxDistance": 90,
+    "maxCount": 10
+  },
+  "npc": {
+    "interactDistance": 2.8
+  },
+  "navigation": {
+    "arriveDistance": 12,
+    "arrowSpacing": 3
+  },
+  "clock": {
+    "_comment": "mode: real = 跟現實時間同步；scaled = 從 start 開始、以 timeScale 倍速前進",
+    "mode": "real",
+    "start": "2026-10-19T08:00:00",
+    "timeScale": 1
+  },
+  "minimap": {
+    "_base": "ortho = 航照底圖；vector = 色塊地圖",
+    "base": "ortho",
+    "smallSize": 170,
+    "smallRadius": 150,
+    "pixelsPerMeter": 1
+  },
+  "language": "zh-TW"
+}

@@ -1,0 +1,339 @@
+{
+  "_comment": [
+    "OSM 沒有畫出來的地標結構。skybridges：有頂蓋的鋼桁架天橋，from/to 是兩端（lat/lon 或 x/z），bottom 是橋底離地高度、height 是橋身高、panel 是桁架每格長度；顏色會套 style.json 的全域色調",
+    "位置依國土測繪中心 2023 正射航照（僅參考，不嵌入）",
+    "sunkenPlazas：下沉廣場（長方形坑，heading 是長邊方向；stairs 每座在 left/right 長邊、從 start/end 端往下；doors 是 B1 入口門的位置），玩家走得下去；canopies：平頂大頂棚＋格狀細柱（落在下沉廣場裡的柱子不放）",
+    "walkways：棧橋（沿 points 的平台、兩端坡道、兩側欄杆、frames 鋼門架，走得上去）；pavilions：出入口站體、石牆、指示柱（石材方盒＋玻璃帷幕＋出挑平頂與細柱＋牆面字 label）"
+  ],
+  "skybridges": [
+    {
+      "name": "成大醫院勝利路天橋",
+      "from": {
+        "lat": 23.002034,
+        "lon": 120.218314
+      },
+      "to": {
+        "lat": 23.002007,
+        "lon": 120.21906
+      },
+      "width": 5,
+      "bottom": 6,
+      "height": 3.4,
+      "panel": 3,
+      "color": "#eef1f4",
+      "glass": "#8fd3ef",
+      "deck": "#c4c9ce",
+      "_ref": "國土測繪中心 2023 航照：勝利路上方有一座白色鋼桁架天橋，西接門診大樓、東接醫院；寬度量航照約 5 公尺，高度推估，待校對"
+    }
+  ],
+  "sunkenPlazas": [
+    {
+      "name": "臺南車站下沉廣場",
+      "center": {
+        "lat": 22.9969,
+        "lon": 120.21352
+      },
+      "heading": 90,
+      "length": 36,
+      "width": 24,
+      "depth": 6,
+      "stairs": [
+        {
+          "side": "right",
+          "top": "end",
+          "width": 9
+        }
+      ],
+      "wall": "#ece5d5",
+      "floor": "#d6d1c6",
+      "rail": "#c9ced3",
+      "door": "#2a3640",
+      "_ref": "鐵道局照片＋YouTube「新台南車站通車了！首日開箱，3出入口進站導覽」（Taiwan Wanderer，2026/10/17 拍攝） 6:10–7:40：2 號出入口從東端整排階梯往西下到坑底；北牆是通往 B1 大廳的玻璃門（車站大廳／月台／1·2 出），西牆是有圓形裝飾的金屬板、南牆靠西端有大型 LED 螢幕；南北兩側地面是花崗石量體，坑邊是實心石材矮牆，坑內立著投光燈柱。位置、尺寸、深度推估，待校對",
+      "doors": [
+        {
+          "wall": "left",
+          "at": 2,
+          "width": 12
+        }
+      ],
+      "screens": [
+        {
+          "wall": "start",
+          "at": 0,
+          "width": 24,
+          "height": 6,
+          "bottom": 0,
+          "offset": 0.02,
+          "color": "#cdc2ad",
+          "seams": 1.5,
+          "seamColor": "#b4a991",
+          "discColor": "#e2d8c4",
+          "discs": [
+            [
+              -9.5,
+              4.3,
+              0.9
+            ],
+            [
+              -7.0,
+              2.0,
+              0.5,
+              "#b0705a"
+            ],
+            [
+              -4.6,
+              4.7,
+              0.6
+            ],
+            [
+              -2.6,
+              1.7,
+              1.1,
+              "#a8a196"
+            ],
+            [
+              0.2,
+              4.1,
+              0.45,
+              "#b0705a"
+            ],
+            [
+              -10.8,
+              1.5,
+              0.35
+            ],
+            [
+              -8.0,
+              5.3,
+              0.3
+            ],
+            [
+              1.8,
+              2.3,
+              0.3
+            ],
+            [
+              3.6,
+              4.6,
+              0.75
+            ],
+            [
+              5.8,
+              1.8,
+              0.4,
+              "#a8a196"
+            ],
+            [
+              7.6,
+              3.9,
+              0.55,
+              "#b0705a"
+            ],
+            [
+              9.9,
+              2.4,
+              0.85
+            ],
+            [
+              11.0,
+              5.1,
+              0.3
+            ]
+          ],
+          "_ref": "YouTube「新台南車站通車了！首日開箱，3出入口進站導覽」（Taiwan Wanderer，2026/10/17 拍攝） 7:00–7:40：坑底西牆整面香檳色金屬板，上面散落大小不一的圓盤（米白、紅褐、灰）"
+        },
+        {
+          "wall": "right",
+          "at": -11,
+          "width": 7,
+          "height": 4,
+          "bottom": 1.2,
+          "color": "#7fa6e8",
+          "_ref": "YouTube「新台南車站通車了！首日開箱，3出入口進站導覽」（Taiwan Wanderer，2026/10/17 拍攝） 6:30–7:20：大型 LED 螢幕在南牆靠西端、面向坑內（從階梯往下看在左手邊）"
+        }
+      ],
+      "parapet": 1.1
+    }
+  ],
+  "canopies": [
+    {
+      "name": "臺南車站大頂棚",
+      "center": {
+        "lat": 22.9969,
+        "lon": 120.2135
+      },
+      "heading": 90,
+      "length": 60,
+      "width": 44,
+      "height": 14,
+      "thickness": 1.2,
+      "columnSpacing": 12,
+      "color": "#e9eaea",
+      "underside": "#d9dcdf",
+      "column": "#f3f4f4",
+      "_ref": "新聞：挑高約 14 公尺的大頂棚（以鳳凰木為設計靈感、薄膜天花），照片是白色細柱撐起的平頂、底面淺灰格板；範圍為推估，待校對"
+    },
+    {
+      "name": "2 號出入口階梯玻璃雨遮",
+      "center": {
+        "x": -494.5,
+        "z": 185.4
+      },
+      "heading": 90,
+      "length": 12,
+      "width": 11,
+      "height": 4.5,
+      "thickness": 0.3,
+      "columnSpacing": 6,
+      "color": "#cfe8ee",
+      "underside": "#bcdde6",
+      "column": "#e9ecee",
+      "_ref": "YouTube「新台南車站通車了！首日開箱，3出入口進站導覽」（Taiwan Wanderer，2026/10/17 拍攝） 6:20：2 號出入口往下的階梯頂上有一片鋼構玻璃雨遮；尺寸推估"
+    }
+  ],
+  "walkways": [
+    {
+      "name": "1 號出入口棧橋",
+      "points": [
+        {
+          "x": -592.0,
+          "z": 168.4
+        },
+        {
+          "x": -533.0,
+          "z": 168.4
+        }
+      ],
+      "width": 6,
+      "height": 0.9,
+      "ramp": 6,
+      "deck": "#bdb6a8",
+      "rail": "#c8443a",
+      "_ref": "新聞＋YouTube「新台南車站通車了！首日開箱，3出入口進站導覽」（Taiwan Wanderer，2026/10/17 拍攝） 2:50–4:30：走原第 1 月台到 6～7 車位置，經紅色欄杆、灰色鋼門架的棧橋跨過軌道，下橋後在大頂棚下的地面。路線、高度推估，待校對",
+      "frames": {
+        "spacing": 6,
+        "height": 3.2,
+        "color": "#9aa3ab"
+      }
+    }
+  ],
+  "pavilions": [
+    {
+      "name": "3 號出入口站體",
+      "center": {
+        "x": -420.2,
+        "z": -287.5
+      },
+      "heading": 12.9,
+      "length": 44,
+      "width": 14,
+      "height": 6.5,
+      "front": "right",
+      "overhang": 5,
+      "columnSpacing": 8,
+      "wall": "#e6d9bd",
+      "glass": "#3c4a52",
+      "roof": "#e4e6e8",
+      "label": "臺南車站\nTAINAN STATION",
+      "labelSize": 0.8,
+      "_ref": "ETtoday（鐵道局）＋YouTube「新台南車站通車了！首日開箱，3出入口進站導覽」（Taiwan Wanderer，2026/10/17 拍攝） 19:20–20:50：沿前鋒路的長型低矮站體，黃花崗石牆、深色玻璃、往前鋒路出挑的平頂與細柱，牆上有「臺南車站 TAINAN STATION」；裡面是往 B1 的手扶梯。長度、深度推估，待校對"
+    },
+    {
+      "name": "3 號出入口指示柱",
+      "center": {
+        "x": -403.6,
+        "z": -304.2
+      },
+      "heading": 12.9,
+      "length": 0.6,
+      "width": 1.0,
+      "height": 3.6,
+      "front": "none",
+      "roofless": true,
+      "wall": "#1f5fae",
+      "glass": "#1f5fae",
+      "roof": "#1f5fae",
+      "label": "3",
+      "labelSide": "right",
+      "labelColor": "#ffffff",
+      "labelSize": 0.5,
+      "_ref": "YouTube「新台南車站通車了！首日開箱，3出入口進站導覽」（Taiwan Wanderer，2026/10/17 拍攝） 20:30：路邊藍色出入口指示柱，標著 3"
+    },
+    {
+      "name": "2 號出入口石材量體",
+      "center": {
+        "x": -505.0,
+        "z": 196.5
+      },
+      "heading": 90,
+      "length": 8,
+      "width": 8,
+      "height": 9,
+      "front": "none",
+      "roofless": true,
+      "wall": "#e6d9bd",
+      "glass": "#3c4a52",
+      "roof": "#e6d9bd",
+      "label": "2",
+      "labelSide": "end",
+      "labelColor": "#2b2f33",
+      "labelSize": 2.6,
+      "_ref": "YouTube「新台南車站通車了！首日開箱，3出入口進站導覽」（Taiwan Wanderer，2026/10/17 拍攝） 6:10：2 號出入口旁的花崗石量體，上面有大大的「2」；位置在階梯頂的西側、面向東邊走來的人，尺寸推估"
+    },
+    {
+      "name": "臺南車站站名石牆",
+      "center": {
+        "x": -525.0,
+        "z": 201.0
+      },
+      "heading": 90,
+      "length": 16,
+      "width": 1.2,
+      "height": 8,
+      "front": "none",
+      "roofless": true,
+      "wall": "#ece4d2",
+      "glass": "#3c4a52",
+      "roof": "#ece4d2",
+      "label": "臺南車站\nTAINAN STATION",
+      "labelSide": "right",
+      "labelColor": "#1f2a33",
+      "labelSize": 1.1,
+      "_ref": "總統府照片（揭牌）＋YouTube「新台南車站通車了！首日開箱，3出入口進站導覽」（Taiwan Wanderer，2026/10/17 拍攝） 5:40：大頂棚旁一面獨立的花崗石牆，寫著「臺南車站 TAINAN STATION」；位置推估在頂棚南緣、面向大學路，待校對"
+    },
+    {
+      "name": "下沉廣場南側站體量體",
+      "center": {
+        "x": -518.5,
+        "z": 195.0
+      },
+      "heading": 90,
+      "length": 19,
+      "width": 8,
+      "height": 4.5,
+      "front": "left",
+      "roofless": true,
+      "wall": "#e6d9bd",
+      "glass": "#2f3a42",
+      "roof": "#e6d9bd",
+      "_ref": "YouTube「新台南車站通車了！首日開箱，3出入口進站導覽」（Taiwan Wanderer，2026/10/17 拍攝） 6:10–6:40：從 2 號出入口往西看，坑的左手邊（南側）地面上是一棟低矮花崗石量體、面向坑有一段深色玻璃；接在「2」石材量體西邊。尺寸推估，待校對"
+    },
+    {
+      "name": "下沉廣場北側站體量體",
+      "center": {
+        "x": -510.0,
+        "z": 159.0
+      },
+      "heading": 90,
+      "length": 32,
+      "width": 8,
+      "height": 4,
+      "front": "none",
+      "roofless": true,
+      "wall": "#ece4d2",
+      "glass": "#2f3a42",
+      "roof": "#ece4d2",
+      "_ref": "YouTube「新台南車站通車了！首日開箱，3出入口進站導覽」（Taiwan Wanderer，2026/10/17 拍攝） 6:20–7:40：坑的右手邊（北側）是花崗石牆面量體，正下方就是 B1 玻璃門；尺寸推估，待校對"
+    }
+  ]
+}

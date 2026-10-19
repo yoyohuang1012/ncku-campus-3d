@@ -1,0 +1,248 @@
+{
+  "_comment": "美術風格：所有顏色集中在這裡。灰盒階段的配色，之後定風格指南時直接改這個檔。",
+  "theme": {
+    "_comment": "全域色調（多巴胺風格）：所有資料顏色（建築、圍牆、樹、地面區塊、道路）的彩度 × saturation、亮度 × lightness；各棟實際顏色資料不用改。設成 1、1 就是實景原色",
+    "saturation": 1.6,
+    "lightness": 1.2
+  },
+  "groundGrade": {
+    "_comment": "航照地面：saturation 只用在本來就有顏色的像素（草地、跑道），接近灰色的路面會去色；brightness 亮度倍率；tint 是 RGB 色偏；cool 是航照裡偏藍青的陰影要去色多少（0~1）；lift 是暗部提亮量",
+    "saturation": 1.6,
+    "brightness": 1.35,
+    "tint": [
+      1.08,
+      1,
+      0.95
+    ],
+    "cool": 0.9,
+    "lift": 0.08
+  },
+  "sky": "#5fbff5",
+  "ground": "#a9a69e",
+  "campusGround": "#b7b19e",
+  "buildings": {
+    "_comment": "依區域細節等級 + 建築類型決定顏色；variation 是每棟隨機明暗差異。",
+    "variation": 0.08,
+    "full": {
+      "university": "#dccaa9",
+      "college": "#dccaa9",
+      "school": "#dccaa9",
+      "dormitory": "#cdb89e",
+      "guardhouse": "#c4bbad",
+      "gatehouse": "#c49a7a",
+      "train_station": "#efe3cc",
+      "hospital": "#e3e1da",
+      "roof": "#8f9499",
+      "default": "#d5cbb9"
+    },
+    "simple": {
+      "default": "#cbc3b4",
+      "roof": "#8f9499"
+    },
+    "outside": {
+      "default": "#b9b6ae",
+      "roof": "#8a8d91"
+    }
+  },
+  "areas": {
+    "grass": "#8fb36a",
+    "park": "#86ad62",
+    "wood": "#6e9a52",
+    "pitch": "#5f9e5a",
+    "pitch_basketball": "#b56a4c",
+    "pitch_tennis": "#4f7fa8",
+    "track": "#b5543c",
+    "water": "#5b9bc4",
+    "parking": "#8f9093",
+    "plaza": "#d8cfbf",
+    "platform": "#c9c3b6",
+    "construction": "#cfc8b8",
+    "playground": "#c9a66b"
+  },
+  "roads": {
+    "vehicle": "#5f5e5b",
+    "service": "#72706b",
+    "foot": "#d9d1c2",
+    "steps": "#bfb5a3",
+    "cycleway": "#b8735f",
+    "track": "#a08f74"
+  },
+  "markings": {
+    "_comment": "道路標線：doubleYellow 的道路種類畫雙黃中線；其他寬度 ≥ centerMinWidth 公尺的車道畫白色虛線（dash 實、gap 空），≥ edgeMinWidth 加路緣白線；步道穿越車道處畫斑馬線",
+    "white": "#f4f4f0",
+    "yellow": "#f2c230",
+    "lineWidth": 0.15,
+    "dash": 4,
+    "gap": 6,
+    "centerMinWidth": 7,
+    "edgeMinWidth": 10,
+    "doubleYellow": ["trunk", "primary", "secondary"],
+    "zebra": {"stripe": 0.45, "gap": 0.45, "length": 3}
+  },
+  "rail": {
+    "ballast": "#7a7068",
+    "track": "#4a4a4a"
+  },
+  "barriers": {
+    "wall": "#a95b43",
+    "fence": "#6b7a6b",
+    "hedge": "#4f7d3d",
+    "wall_plaster": "#ddd6c6",
+    "wall_stone": "#a29d93",
+    "default": "#b8b2a6",
+    "city_wall": "#8e8a80",
+    "_wall": "城牆殘蹟（city_wall）依成大素材網「小西門及小東門殘蹟」照片是風化的灰色石砌牆；圍牆：Google 街景中光復校區勝利路、前鋒路是紅磚（wall）；成功校區小東路、長榮路是米白粉刷矮牆（wall_plaster），大學路是灰色石牆（wall_stone）"
+  },
+  "barrierThickness": {
+    "_comment": "各種圍牆的厚度（公尺）；city_wall 是府城城垣，牆身很厚",
+    "hedge": 0.8,
+    "fence": 0.08,
+    "city_wall": 3.5,
+    "default": 0.25
+  },
+  "trees": {
+    "trunk": "#7a5636",
+    "palm": {
+      "_comment": "椰子樹（streetscape.json 的 avenues kind: palm）：成大素材網「光復校區大學路大門」雲平大道兩側是灰色樹幹的高大椰子樹",
+      "trunk": "#bdb4a4",
+      "fronds": [
+        "#4fb03c",
+        "#3f9c36",
+        "#69c24a"
+      ]
+    },
+    "leaves": [
+      "#5fb548",
+      "#4aa63c",
+      "#7bc756",
+      "#3d9a44"
+    ],
+    "_sizes": "高度 h 與樹冠半徑 crown（公尺）＝ 最小值 + 隨機 × 範圍。single 為單獨標註的大樹（榕樹、鳳凰木），street 為行道樹，filled 為補種、canopy 為依航照樹冠補的樹。依 Google 街景，校園樹多在 10 公尺以上",
+    "sizes": {
+      "single": {
+        "h": [
+          11,
+          5
+        ],
+        "crown": [
+          5,
+          2.5
+        ]
+      },
+      "street": {
+        "h": [
+          8,
+          3
+        ],
+        "crown": [
+          3.5,
+          1.5
+        ]
+      },
+      "filled": {
+        "h": [
+          9,
+          4
+        ],
+        "crown": [
+          4,
+          2
+        ]
+      },
+      "palm": {
+        "h": [
+          11,
+          4
+        ],
+        "crown": [
+          3.6,
+          1
+        ]
+      },
+      "canopy": {
+        "h": [
+          9,
+          5
+        ],
+        "crown": [
+          4,
+          2.5
+        ]
+      }
+    }
+  },
+  "route": "#19c3e6",
+  "lighting": {
+    "_comment": "天空與光線；強度是 [夜間基礎值, 白天增加量]",
+    "skyNight": "#0f1a2e",
+    "skyDusk": "#e8a87c",
+    "hemiSky": "#eaf6ff",
+    "hemiGround": "#d8c79a",
+    "hemiIntensity": [
+      0.45,
+      1.35
+    ],
+    "sunColor": "#fff3d1",
+    "sunDusk": "#ffa060",
+    "sunIntensity": [
+      0.15,
+      1.75
+    ]
+  },
+  "props": {
+    "_comment": "設施與雕塑的材質色（world/props.ts）；雕塑可在 overrides/props.json 個別覆寫 color / color2",
+    "metal": "#4b5563",
+    "pole": "#d7dde3",
+    "lampGlass": "#fff4c2",
+    "wood": "#c0814a",
+    "bin": "#2fae66",
+    "binRecycle": "#2f7fe0",
+    "bikes": [
+      "#2b6cb0",
+      "#e53e3e",
+      "#2f9e5a",
+      "#f0a020",
+      "#7c5cd6"
+    ],
+    "scooters": [
+      "#f2f2f2",
+      "#1f2430",
+      "#e53e3e",
+      "#2c5fb8",
+      "#8a96a3",
+      "#f2b632"
+    ],
+    "youbike": "#f6a623",
+    "shelterRoof": "#eef1f4",
+    "shelterGlass": "#a9dcf0",
+    "busSign": "#2563eb",
+    "signalHead": "#2d3748",
+    "flag": "#e53935",
+    "steel": "#a8b3bd",
+    "vending": "#e53e3e",
+    "phone": "#e53e3e",
+    "stone": "#c4bfb4",
+    "water": "#56b8ee",
+    "bronze": "#7a5a3a",
+    "banners": [
+      "#e8336d",
+      "#f5a623",
+      "#7b4fd6",
+      "#1fa3e0",
+      "#2fbf71",
+      "#f25c2a"
+    ]
+  },
+  "water": {
+    "_comment": "水池（OSM water 區域）：水面高度 level、反光 shininess/specular、池岸石材 rim；bridge/bridgeDeck 是跨水步道小橋的欄杆與橋面，bridgeRise 是橋中央最多拱起幾公尺。成大素材網成功湖照片：紅色拱橋、石砌池岸",
+    "level": 0.06,
+    "shininess": 90,
+    "specular": "#9fb6c8",
+    "rim": "#cfc6b2",
+    "rimHeight": 0.35,
+    "rimWidth": 0.5,
+    "bridge": "#c8382c",
+    "bridgeDeck": "#b9ab94",
+    "bridgeRise": 1.2
+  }
+}

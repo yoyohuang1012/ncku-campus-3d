@@ -1,0 +1,53 @@
+{
+  "_comment": [
+    "NPC 名單。每個 NPC 依 schedule 決定哪天、幾點出現在哪裡、講哪段對話。",
+    "schedule 由上往下比對，第一筆符合目前時間的生效；都不符合就不出現。",
+    "  days：\"all\" 或 [\"mon\",\"tue\",\"wed\",\"thu\",\"fri\",\"sat\",\"sun\"]",
+    "  dates：選填，指定日期陣列 [\"2026-10-17\"]，優先於 days",
+    "  from / to：時間 \"HH:MM\"，to 可以是 \"24:00\"",
+    "  at：位置，可寫 {\"lat\":..,\"lon\":..}、{\"x\":..,\"z\":..}、或 {\"building\":\"建築id\"}（自動站到該建築旁的路上）",
+    "  facing：面向角度（0=北, 90=東）；省略則面向最近的路",
+    "  dialogue：對話 id（見 dialogues/dialogues.json）",
+    "  animation：idle / dance / wave（之後可擴充）",
+    "interactive：false 代表只是路人，不能對話"
+  ],
+  "npcs": [
+    {
+      "id": "senior_guide",
+      "nameKey": "npc.senior_guide",
+      "interactive": true,
+      "appearance": { "shirt": "#e2a03f", "pants": "#2f3e56", "skin": "#e8b98f", "hair": "#2a1d14", "bag": "#3c6e71" },
+      "schedule": [
+        { "days": "all", "from": "06:00", "to": "23:00", "at": { "x": -482, "z": 190 }, "facing": 270, "dialogue": "senior_guide_intro", "animation": "wave" }
+      ]
+    },
+    {
+      "id": "dancer",
+      "nameKey": "npc.dancer",
+      "interactive": true,
+      "appearance": { "shirt": "#d6336c", "pants": "#111111", "skin": "#f0c8a0", "hair": "#111111" },
+      "schedule": [
+        { "days": ["mon", "tue", "wed", "thu", "fri"], "from": "18:00", "to": "23:00", "at": { "building": "osm-w251597489" }, "dialogue": "dancer_evening", "animation": "dance" }
+      ]
+    },
+    {
+      "id": "club_recruiter",
+      "nameKey": "npc.club_recruiter",
+      "interactive": true,
+      "appearance": { "shirt": "#2b8a3e", "pants": "#495057", "skin": "#d9a679", "hair": "#3b2414", "bag": "#f08c00" },
+      "schedule": [
+        { "days": "all", "from": "08:00", "to": "18:00", "at": { "building": "osm-w251597489" }, "dialogue": "club_recruiter_day", "animation": "wave" },
+        { "days": ["sat", "sun"], "from": "18:00", "to": "22:00", "at": { "building": "osm-w251597489" }, "dialogue": "club_recruiter_day", "animation": "idle" }
+      ]
+    },
+    {
+      "id": "library_volunteer",
+      "nameKey": "npc.library_volunteer",
+      "interactive": true,
+      "appearance": { "shirt": "#4c6ef5", "pants": "#adb5bd", "skin": "#f3d2b3", "hair": "#5c3d2e" },
+      "schedule": [
+        { "days": "all", "from": "08:00", "to": "22:00", "at": { "building": "osm-w251596111" }, "dialogue": "library_volunteer", "animation": "idle" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "_comment": "世界設定。座標原點 origin 為 (0,0)，x 向東、z 向南，單位公尺。改這裡不需要改程式。",
+  "bbox": { "south": 22.993, "west": 120.21, "north": 23.006, "east": 120.227 },
+  "origin": { "lat": 22.9985, "lon": 120.2185 },
+
+  "spawn": {
+    "_comment": "玩家起點：臺南新車站 2 號出入口（大學路與前鋒路口），面向東邊的大學路；左手邊是光復校區、右手邊是香格里拉飯店",
+    "lat": 22.996764,
+    "lon": 120.213669,
+    "heading": 90
+  },
+
+  "nckuRelationId": 6038644,
+
+  "regions": [
+    { "id": "station",   "nameKey": "region.station",   "detail": "full", "kind": "box",
+      "box": { "south": 22.9952, "west": 120.2112, "north": 22.9985, "east": 120.2140 } },
+    { "id": "guangfu",   "nameKey": "region.guangfu",   "detail": "full", "kind": "nckuRing", "anchor": { "lat": 22.9990, "lon": 120.2160 } },
+    { "id": "chenggong", "nameKey": "region.chenggong", "detail": "full", "kind": "nckuRing", "anchor": { "lat": 22.9985, "lon": 120.2200 } },
+    { "id": "lixing",    "nameKey": "region.lixing",    "detail": "full", "kind": "nckuRing", "anchor": { "lat": 23.0025, "lon": 120.2165 } },
+    { "id": "shengli",   "nameKey": "region.shengli",   "detail": "simple", "kind": "nckuRing", "anchor": { "lat": 22.9945, "lon": 120.2195 } },
+    { "id": "ziqiang",   "nameKey": "region.ziqiang",   "detail": "simple", "kind": "nckuRing", "anchor": { "lat": 22.9970, "lon": 120.2230 } },
+    { "id": "chengxing", "nameKey": "region.chengxing", "detail": "simple", "kind": "nckuRing", "anchor": { "lat": 23.0020, "lon": 120.2205 } },
+    { "id": "jingye",    "nameKey": "region.jingye",    "detail": "simple", "kind": "nckuRing", "anchor": { "lat": 23.0015, "lon": 120.2235 } },
+    { "id": "dongning",  "nameKey": "region.dongning",  "detail": "simple", "kind": "nckuRing", "anchor": { "lat": 22.9930, "lon": 120.2230 } }
+  ],
+
+  "railway": {
+    "_comment": "台南鐵路地下化 2026-10-17 啟用。地面軌道拆除後把 showSurfaceTracks 改成 false。",
+    "showSurfaceTracks": true
+  },
+
+  "buildingDefaults": {
+    "_comment": "OSM 沒有高度資料時，依建築類型推估樓層數。levelHeight 為每層高度（公尺）。",
+    "levelHeight": 3.6,
+    "levelsByType": {
+      "university": 5, "school": 4, "college": 5, "dormitory": 8,
+      "apartments": 8, "residential": 4, "house": 3, "terrace": 4,
+      "retail": 3, "commercial": 6, "office": 8, "hotel": 12,
+      "hospital": 9, "train_station": 2, "church": 2, "temple": 2,
+      "guardhouse": 1, "kiosk": 1, "toilets": 1, "shed": 1, "garage": 1,
+      "service": 1, "construction": 2, "yes": 4
+    },
+    "roofTypes": ["roof", "carport"],
+    "elevatedTypes": { "bridge": 5 },
+    "roofHeight": 4
+  }
+}

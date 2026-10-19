@@ -1,0 +1,46 @@
+{
+  "_comment": [
+    "設施與雕塑的個別造型。models：依 match（name 名稱，或 lat/lon＋radius 位置）找到 OSM 的設施，換上 model；add：新增 OSM 沒有的設施。",
+    "model.type：curve 細長曲線、abstract 腳撐翼片、seated 坐姿人像、spiky_ball 尖刺球、figure_pair 雙人像、block_figure 方塊人形、frame_disc 方框鏡面圓盤、tower_loop 高塔圓環、rings 圓環、cube 立方體、bust 胸像、standing 站姿全身像、gate 門柱、paifang 牌坊、booth 警衛亭、banner_row 一排旗桿（count、spacing、colors）、monolith 石碑",
+    "height 總高、pedestal 底座高、pedestalWidth 底座寬、clearTrees 周圍不種樹的半徑、width 門寬或長邊、color 主色、color2 次色（底座、核心、鏡面）、color3 第三色（紋飾、招牌）；顏色會套 style.json 的全域色調",
+    "參考：成大素材網「藝術品」分類（僅參考，不嵌入）"
+  ],
+  "models": [
+    {"match": {"name": "鄭成功像"}, "model": {"type": "standing", "height": 10, "pedestal": 6, "pedestalWidth": 2.2, "clearTrees": 14, "color": "#8a6a3a", "color2": "#e9e7e2"}, "rot": -90, "_ref": "Wikimedia Commons「Roundabout in front of Tainan Station (2026)」：站前圓環中央，白色石材高台座上的銅像，背對車站面向西邊；身形為簡化"},
+    {"match": {"name": "飛撲雕像"}, "name": "飛撲", "model": {"type": "abstract", "height": 3.6, "pedestal": 0, "color": "#3b3733"}, "_ref": "成大素材網「雲平大樓《飛撲》」：深色金屬翼片、兩支腳撐起"},
+    {"match": {"name": "蠕沐春風"}, "model": {"type": "curve", "height": 6.5, "pedestal": 0.3, "color": "#d8322b"}, "_ref": "成大素材網「蠕沐春風」：細長的紅色 S 形鋼雕"},
+    {"match": {"lat": 22.998166, "lon": 120.216168, "radius": 6}, "name": "思想者", "model": {"type": "seated", "height": 2.4, "pedestal": 0.6, "color": "#6b5843", "color2": "#9a9690"}, "_ref": "成大素材網「活動中心前—思想者」：銅色坐姿人像；OSM 在第一學生活動中心南側有一件未命名雕塑，推定為此件"},
+    {"match": {"name": "繭"}, "model": {"type": "spiky_ball", "height": 2.8, "pedestal": 0.3, "color": "#b04fd0", "color2": "#f06fae"}, "_ref": "成大素材網「「繭」(生醫卓群大樓前)」：紫粉色放射狀尖刺球"},
+    {"match": {"lat": 22.999305, "lon": 120.220403, "radius": 6}, "name": "展翅", "model": {"type": "abstract", "height": 3.2, "pedestal": 0.7, "color": "#4a4440", "color2": "#eeeae2"}, "_ref": "成大素材網「圖書館旁—展翅」：白色底座上的深色抽象翼形；位置是 OSM 總圖東北側未命名雕塑，推定"},
+    {"match": {"name": "舞"}, "model": {"type": "figure_pair", "height": 2.6, "pedestal": 0.25, "color": "#5a4632"}, "_ref": "成大素材網「舞動」：兩個舞動的銅雕人像；OSM 名稱為「舞」，推定為同一件"},
+    {"match": {"name": "風刻痕"}, "model": {"type": "tower_loop", "height": 4, "pedestal": 0.2, "color": "#c9d0d6"}, "_ref": "成大素材網「浮雲樹影－風刻痕」；造型待校對"},
+    {"match": {"name": "Cube"}, "model": {"type": "cube", "height": 2.4, "pedestal": 0.3, "color": "#b8c2cc"}, "_ref": "依名稱推估：立方體；待校對"},
+    {"match": {"name": "永恆之光"}, "model": {"type": "tower_loop", "height": 4.5, "pedestal": 0.3, "color": "#d6dde3"}, "_ref": "依名稱推估；待校對"},
+    {"match": {"name": "火之起始"}, "model": {"type": "curve", "height": 4, "pedestal": 0.4, "color": "#f07a2a"}, "_ref": "依名稱推估；待校對"},
+    {"match": {"name": "學之以水"}, "model": {"type": "rings", "height": 3, "pedestal": 0.3, "color": "#3d8fd8"}, "_ref": "依名稱推估；待校對"},
+    {"match": {"name": "向老子致敬"}, "model": {"type": "block_figure", "height": 2.8, "pedestal": 0.5, "color": "#5a4632"}, "_ref": "依名稱推估；待校對"},
+    {"match": {"name": "光徑"}, "model": {"type": "monolith", "height": 3.2, "pedestal": 0.2, "color": "#d6dde3"}, "_ref": "依名稱推估；待校對"},
+    {"match": {"name": "守衛"}, "model": {"type": "block_figure", "height": 2.8, "pedestal": 0.3, "color": "#4a3c30"}, "_ref": "依名稱推估；待校對"},
+    {"match": {"name": "閃耀的瞬間"}, "model": {"type": "spiky_ball", "height": 2.4, "pedestal": 0.4, "color": "#f2c230", "color2": "#ffffff"}, "_ref": "依名稱推估；待校對"}
+  ],
+  "add": [
+    {"lat": 22.99623, "lon": 120.21842, "kind": "artwork", "name": "大學路牌坊（原國立成功大學校門）", "rot": -94,
+     "model": {"type": "paifang", "height": 8, "pedestal": 0, "width": 11, "color": "#f3f1ec", "color2": "#2b2b2d", "color3": "#b9bcbf"},
+     "_ref": "成大素材網「大學路牌坊」「窮理致知」：白色方柱立在黑色基座上，深橫楣上緣有灰色魚鱗紋，正面題「窮理致知」；跨在大學路上，方向依大學路走向（94°）"},
+    {"lat": 22.996514, "lon": 120.216666, "kind": "artwork", "name": "光復校區大門警衛亭（西）", "rot": 81.5,
+     "model": {"type": "booth", "height": 3.2, "pedestal": 0, "width": 7, "color": "#2e3a40", "color2": "#1d2326", "color3": "#d8262e"},
+     "_ref": "成大素材網「光復校區大學路大門」：雲平大道入口兩側的深色玻璃警衛亭，紅色招牌"},
+    {"lat": 22.996494, "lon": 120.216811, "kind": "artwork", "name": "光復校區大門警衛亭（東）", "rot": 81.5,
+     "model": {"type": "booth", "height": 3.2, "pedestal": 0, "width": 7, "color": "#2e3a40", "color2": "#1d2326", "color3": "#d8262e"},
+     "_ref": "同上"},
+    {"lat": 22.996608, "lon": 120.216647, "kind": "artwork", "name": "光復校區大門旗海", "rot": 81.5,
+     "model": {"type": "banner_row", "height": 10, "pedestal": 0, "count": 9, "spacing": 3.2},
+     "_ref": "成大素材網「光復校區大學路大門」：入口西側沿雲平大道一排旗桿，掛彩色直式長旗；旗數依照片約 9 支"},
+    {"x": -523, "z": 168, "y": -6, "kind": "floodlight", "rot": 0, "_ref": "YouTube「新台南車站通車了！首日開箱，3出入口進站導覽」（Taiwan Wanderer，2026/10/17 拍攝） 6:30、7:10：下沉廣場坑底的投光燈柱；位置推估"},
+    {"x": -523, "z": 180, "y": -6, "kind": "floodlight", "rot": 0, "_ref": "YouTube「新台南車站通車了！首日開箱，3出入口進站導覽」（Taiwan Wanderer，2026/10/17 拍攝） 6:30、7:10：下沉廣場坑底的投光燈柱；位置推估"},
+    {"x": -506, "z": 168, "y": -6, "kind": "floodlight", "rot": 0, "_ref": "YouTube「新台南車站通車了！首日開箱，3出入口進站導覽」（Taiwan Wanderer，2026/10/17 拍攝） 6:30、7:10：下沉廣場坑底的投光燈柱；位置推估"},
+    {"x": -506, "z": 180, "y": -6, "kind": "floodlight", "rot": 0, "_ref": "YouTube「新台南車站通車了！首日開箱，3出入口進站導覽」（Taiwan Wanderer，2026/10/17 拍攝） 6:30、7:10：下沉廣場坑底的投光燈柱；位置推估"},
+    {"x": -484, "z": 196, "kind": "floodlight", "rot": 0, "_ref": "YouTube「新台南車站通車了！首日開箱，3出入口進站導覽」（Taiwan Wanderer，2026/10/17 拍攝） 5:10：大頂棚旁地面的投光燈柱；位置推估"},
+    {"x": -536, "z": 196, "kind": "floodlight", "rot": 0, "_ref": "YouTube「新台南車站通車了！首日開箱，3出入口進站導覽」（Taiwan Wanderer，2026/10/17 拍攝） 5:10：大頂棚旁地面的投光燈柱；位置推估"}
+  ]
+}

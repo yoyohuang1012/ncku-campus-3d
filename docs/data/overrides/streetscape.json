@@ -1,0 +1,312 @@
+{
+  "avenues": [
+    {"road": "雲平大道", "kind": "palm", "spacing": 9, "offset": 5, "replace": true, "_ref": "成大素材網「光復校區大學路大門」：雲平大道兩側一路是椰子樹"},
+    {"road": "北門路二段", "kind": "palm", "spacing": 16, "offset": 9, "replace": true, "within": {"lat": 22.9971, "lon": 120.2120, "radius": 70}, "_ref": "Wikimedia Commons「Tainan Station (2026)」：舊站房前與站前圓環周邊是椰子樹"},
+    {"road": "北門路一段", "kind": "palm", "spacing": 16, "offset": 9, "replace": true, "within": {"lat": 22.9971, "lon": 120.2120, "radius": 70}, "_ref": "同上"}
+  ],
+  "alignProps": {"kinds": ["bus_shelter", "bus_stop"], "maxDistance": 25},
+  "_comment": [
+    "沿校區邊界自動產生紅磚圍牆與兩排樹（Google 街景：光復校區四周都是紅磚圍牆，人行道與牆內都有大樹）。",
+    "region：world.json 的校區 id；streets：只在這些街道旁產生（名稱開頭比對）",
+    "wall.height 牆高、wall.inset 從校區邊界往內縮幾公尺、wall.gateWidth 道路或步道穿越處留的出入口寬度、",
+    "wall.maxStreetDistance 離街道中心線多遠內才蓋牆、wall.skipNearExisting 離 OSM 既有圍牆多近就不重複蓋",
+    "trees.outside 人行道行道樹（offset 從邊界往外幾公尺、spacing 間距）；trees.inside 牆內大樹（offset 往內幾公尺）",
+    "樹會自動避開車道、建築與既有的樹；wall.kind 對應 config/style.json 的 barriers 顏色（省略＝wall 紅磚）",
+    "同一校區各街道圍牆不同時，可以寫多筆同 region 的 perimeter，各自列 streets",
+    "wall.openings：OSM 沒畫到的出入口或開放廣場，[{lat, lon, width}]，width 公尺範圍內不蓋牆",
+    "furniture：校區內自動擺設施。streetLamps 外圍人行道路燈（懸臂朝街）、pathLamps 沿 kinds 道路兩側交錯的步道燈、benches 沿 kinds 步道的座椅（面向步道，每 binEvery 張放一組垃圾桶）",
+    "canopy：依航照綠色比例在校區內補樹（避開建築、車道與既有的樹）。spacing 取樣間距、radius 量綠色比例的半徑、minGreen 門檻 0~1"
+  ],
+  "canopy": [
+    {
+      "region": "guangfu",
+      "spacing": 8,
+      "radius": 3,
+      "minGreen": 0.5
+    },
+    {
+      "region": "chenggong",
+      "spacing": 8,
+      "radius": 3,
+      "minGreen": 0.5
+    },
+    {
+      "region": "lixing",
+      "spacing": 8,
+      "radius": 3,
+      "minGreen": 0.5
+    }
+  ],
+  "furniture": [
+    {
+      "region": "guangfu",
+      "streetLamps": {
+        "streets": [
+          "前鋒路",
+          "小東路",
+          "勝利路",
+          "大學路"
+        ],
+        "maxStreetDistance": 30,
+        "offset": 0.9,
+        "spacing": 30
+      },
+      "pathLamps": {
+        "kinds": [
+          "footway",
+          "path",
+          "pedestrian",
+          "service"
+        ],
+        "spacing": 24,
+        "offset": 0.8
+      },
+      "benches": {
+        "kinds": [
+          "footway",
+          "path",
+          "pedestrian"
+        ],
+        "spacing": 55,
+        "offset": 1.4,
+        "binEvery": 2
+      }
+    },
+    {
+      "region": "chenggong",
+      "streetLamps": {
+        "streets": [
+          "小東路",
+          "長榮路",
+          "大學路",
+          "勝利路"
+        ],
+        "maxStreetDistance": 30,
+        "offset": 0.9,
+        "spacing": 30
+      },
+      "pathLamps": {
+        "kinds": [
+          "footway",
+          "path",
+          "pedestrian",
+          "service"
+        ],
+        "spacing": 24,
+        "offset": 0.8
+      },
+      "benches": {
+        "kinds": [
+          "footway",
+          "path",
+          "pedestrian"
+        ],
+        "spacing": 55,
+        "offset": 1.4,
+        "binEvery": 2
+      }
+    },
+    {
+      "region": "lixing",
+      "streetLamps": {
+        "streets": [
+          "小東路",
+          "勝利路",
+          "前鋒路",
+          "東豐路"
+        ],
+        "maxStreetDistance": 30,
+        "offset": 0.9,
+        "spacing": 30
+      },
+      "pathLamps": {
+        "kinds": [
+          "footway",
+          "path",
+          "pedestrian",
+          "service"
+        ],
+        "spacing": 24,
+        "offset": 0.8
+      },
+      "benches": {
+        "kinds": [
+          "footway",
+          "path",
+          "pedestrian"
+        ],
+        "spacing": 55,
+        "offset": 1.4,
+        "binEvery": 2
+      }
+    }
+  ],
+  "perimeters": [
+    {
+      "region": "guangfu",
+      "streets": [
+        "前鋒路",
+        "小東路",
+        "勝利路",
+        "大學路"
+      ],
+      "wall": {
+        "height": 1.8,
+        "inset": 0.8,
+        "gateWidth": 7,
+        "maxStreetDistance": 30,
+        "skipNearExisting": 2.5
+      },
+      "trees": {
+        "maxStreetDistance": 32,
+        "outside": {
+          "offset": 1.8,
+          "spacing": 9
+        },
+        "inside": {
+          "offset": 4.5,
+          "spacing": 11
+        }
+      }
+    },
+    {
+      "_ref": "Google 街景 2025/2：小東路、長榮路側是米白色粉刷矮牆（約 1.3 公尺）",
+      "region": "chenggong",
+      "streets": [
+        "小東路",
+        "長榮路"
+      ],
+      "wall": {
+        "kind": "wall_plaster",
+        "height": 1.3,
+        "inset": 0.8,
+        "gateWidth": 7,
+        "maxStreetDistance": 30,
+        "skipNearExisting": 2.5,
+        "openings": [
+          {
+            "_ref": "卓群大樓前沒有圍牆，只有行道樹與停車格（街景 23.0000443,120.222297）",
+            "lat": 23.00004,
+            "lon": 120.22212,
+            "width": 60
+          }
+        ]
+      },
+      "trees": {
+        "maxStreetDistance": 32,
+        "outside": {
+          "offset": 1.8,
+          "spacing": 9
+        },
+        "inside": {
+          "offset": 4.5,
+          "spacing": 11
+        }
+      }
+    },
+    {
+      "_ref": "Google 街景 2025/1：大學路側是灰色石牆，博物館、工科館前有開放廣場",
+      "region": "chenggong",
+      "streets": [
+        "大學路"
+      ],
+      "wall": {
+        "kind": "wall_stone",
+        "height": 1.8,
+        "inset": 0.8,
+        "gateWidth": 7,
+        "maxStreetDistance": 30,
+        "skipNearExisting": 2.5,
+        "openings": [
+          {
+            "_ref": "博物館正門前廣場（街景 22.9961655,120.2195849）",
+            "lat": 22.99623,
+            "lon": 120.21959,
+            "width": 40
+          },
+          {
+            "_ref": "工科新館前水池廣場（街景 22.9960469,120.2212767）",
+            "lat": 22.99612,
+            "lon": 120.22138,
+            "width": 34
+          }
+        ]
+      },
+      "trees": {
+        "maxStreetDistance": 32,
+        "outside": {
+          "offset": 1.8,
+          "spacing": 9
+        },
+        "inside": {
+          "offset": 4.5,
+          "spacing": 11
+        }
+      }
+    },
+    {
+      "_ref": "Google 街景 2025/1：勝利路側沒有圍牆，只有矮台基與機車停車",
+      "region": "chenggong",
+      "streets": [
+        "勝利路"
+      ],
+      "trees": {
+        "maxStreetDistance": 32,
+        "outside": {
+          "offset": 1.8,
+          "spacing": 9
+        },
+        "inside": {
+          "offset": 4.5,
+          "spacing": 11
+        }
+      }
+    },
+    {
+      "_ref": "Google 街景 2025/2：小東路側（綠色魔法學校前）是米白色粉刷矮牆",
+      "region": "lixing",
+      "streets": [
+        "小東路"
+      ],
+      "wall": {
+        "kind": "wall_plaster",
+        "height": 1.3,
+        "inset": 0.8,
+        "gateWidth": 7,
+        "maxStreetDistance": 30,
+        "skipNearExisting": 2.5
+      },
+      "trees": {
+        "maxStreetDistance": 32,
+        "outside": {
+          "offset": 1.8,
+          "spacing": 9
+        },
+        "inside": {
+          "offset": 4.5,
+          "spacing": 11
+        }
+      }
+    },
+    {
+      "_ref": "Google 街景：勝利路側是醫院入口與人行道、前鋒路側建築直接臨人行道，沒有圍牆；東豐路側待校對",
+      "region": "lixing",
+      "streets": [
+        "勝利路",
+        "前鋒路",
+        "東豐路"
+      ],
+      "trees": {
+        "maxStreetDistance": 32,
+        "outside": {
+          "offset": 1.8,
+          "spacing": 9
+        },
+        "inside": {
+          "offset": 4.5,
+          "spacing": 11
+        }
+      }
+    }
+  ]
+}

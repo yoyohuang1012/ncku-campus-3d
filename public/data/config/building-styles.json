@@ -1,0 +1,800 @@
+{
+  "_comment": [
+    "建築外觀風格。每棟建築用 overrides/buildings.json 的 style 指定，沒指定就依 defaults（依區域細節等級）。",
+    "也可以在單棟建築用 appearance 只覆寫部分欄位，例如 {\"wallColor\":\"#c0705a\"}。",
+    "wall：牆面材質 brick 紅磚 / tile 二丁掛磁磚 / plaster 粉刷 / concrete 清水混凝土 / stone 洗石子",
+    "window：grid 一般窗 / ribbon 水平帶窗 / tall 日式直立窗 / frame 外露混凝土框架＋磚牆 / arcade 拱廊 / loggia 磚柱白拱廊 / corridor 開放走廊（欄杆＋走廊陰影）/ curtain 玻璃帷幕 / none 無窗",
+    "window：grid 一般窗 / ribbon 水平帶窗 / tall 日式直立窗 / arcade 拱廊 / none 無窗",
+    "bayWidth：一個開間（一扇窗）的寬度，公尺",
+    "roof.shape：flat 平屋頂 / hip 四坡（自動產生，適用任意輪廓）/ curved 弧形",
+    "roof.color：屋頂色，auto 代表從航照取樣；roof.pitch：坡度（度）；roof.overhang：出簷（公尺）；roof.rise：弧形屋頂拱高；roof.parapet：女兒牆高"
+  ],
+  "defaults": {
+    "full": "ncku_brick",
+    "simple": "ncku_brick",
+    "outside": "city",
+    "station": "city"
+  },
+  "styles": {
+    "city": {
+      "wall": "tile",
+      "wallColor": [
+        "#e8e3d8",
+        "#d9d4ca",
+        "#cfc9bd",
+        "#e2d6c2",
+        "#c9c4bb",
+        "#ded9d0",
+        "#bfb8ac",
+        "#d8cbb5"
+      ],
+      "trimColor": "#a8a39a",
+      "windowColor": "#3d4650",
+      "window": "grid",
+      "bayWidth": 3.2,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.0
+      }
+    },
+    "ncku_brick": {
+      "_note": "成大常見的紅磚面＋灰色混凝土框（管理學院、修齊大樓等）",
+      "wall": "brick",
+      "wallColor": "#a4533c",
+      "trimColor": "#bdb8ae",
+      "windowColor": "#323c46",
+      "window": "grid",
+      "bayWidth": 3.6,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.1
+      }
+    },
+    "ncku_brick_ribbon": {
+      "wall": "brick",
+      "wallColor": "#a14f39",
+      "trimColor": "#c4bfb5",
+      "windowColor": "#2f3a44",
+      "window": "ribbon",
+      "bayWidth": 3.6,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.1
+      }
+    },
+    "ncku_pink_tile": {
+      "_note": "雲平大樓：粉紅磚色磁磚、米白窗框",
+      "wall": "tile",
+      "wallColor": "#d48b78",
+      "trimColor": "#ece3d6",
+      "windowColor": "#3a4652",
+      "window": "grid",
+      "bayWidth": 3.0,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.2
+      }
+    },
+    "japanese_barracks_brick": {
+      "_note": "日治時期營舍：紅磚、白色線腳、直立窗、深灰瓦四坡屋頂、出簷",
+      "wall": "brick",
+      "wallColor": "#9b4a35",
+      "trimColor": "#e9e3d6",
+      "windowColor": "#2d4648",
+      "window": "tall",
+      "bayWidth": 3.2,
+      "roof": {
+        "shape": "hip",
+        "color": "#4d5258",
+        "pitch": 30,
+        "overhang": 0.9
+      }
+    },
+    "japanese_barracks_arcade": {
+      "_note": "歷史系館：白色拱廊立面、深灰瓦四坡屋頂",
+      "wall": "plaster",
+      "wallColor": "#ece7dc",
+      "trimColor": "#f6f3ec",
+      "windowColor": "#3b3f3f",
+      "window": "arcade",
+      "bayWidth": 3.4,
+      "roof": {
+        "shape": "hip",
+        "color": "#4a4f55",
+        "pitch": 30,
+        "overhang": 0.9
+      }
+    },
+    "white_concrete": {
+      "wall": "plaster",
+      "wallColor": "#e6e3dc",
+      "trimColor": "#cfcac0",
+      "windowColor": "#36424d",
+      "window": "ribbon",
+      "bayWidth": 3.6,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.0
+      }
+    },
+    "white_hall": {
+      "_note": "成功廳：白色大量體、少窗",
+      "wall": "plaster",
+      "wallColor": "#eceae4",
+      "trimColor": "#d4d0c7",
+      "windowColor": "#3a444e",
+      "window": "none",
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.5
+      }
+    },
+    "student_center": {
+      "_note": "第一學生活動中心二樓以上：褐色洗石子水平帶、白色樓板邊、連續帶窗（逐層往外挑出）",
+      "wall": "concrete",
+      "wallColor": "#958a7a",
+      "trimColor": "#f1f0ec",
+      "windowColor": "#36424d",
+      "window": "ribbon",
+      "bayWidth": 3.6,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.0
+      }
+    },
+    "dorm_white": {
+      "wall": "tile",
+      "wallColor": "#e9e4d8",
+      "trimColor": "#c9bfae",
+      "windowColor": "#3a4652",
+      "window": "grid",
+      "bayWidth": 2.8,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.2
+      }
+    },
+    "curved_hall": {
+      "_note": "中正堂：弧形大屋頂",
+      "wall": "plaster",
+      "wallColor": "#e3e1db",
+      "trimColor": "#cbc7bf",
+      "windowColor": "#3a444e",
+      "window": "ribbon",
+      "bayWidth": 4.0,
+      "roof": {
+        "shape": "curved",
+        "color": "auto",
+        "rise": 7
+      }
+    },
+    "city_gate": {
+      "_note": "小西門（靖波門）城台：紅磚、拱形門洞、平頂女兒牆（成大素材網 2025 照片）",
+      "wall": "brick",
+      "wallColor": "#a54a33",
+      "trimColor": "#8c3f2c",
+      "windowColor": "#2b2622",
+      "window": "arcade",
+      "bayWidth": 7.0,
+      "roof": {
+        "shape": "flat",
+        "color": "#9a5a45",
+        "parapet": 0.7
+      }
+    },
+    "brick_corridor": {
+      "_note": "唯農大樓：橘紅磚、長向立面是開放走廊（白欄杆）、山牆無窗",
+      "wall": "brick",
+      "wallColor": "#a9503a",
+      "trimColor": "#e9e7e1",
+      "windowColor": "#4a4440",
+      "window": "corridor",
+      "bayWidth": 3.6,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 0.9
+      }
+    },
+    "brick_frame": {
+      "_note": "中文系館：灰色混凝土框架（柱＋樑）＋紅磚填充",
+      "wall": "brick",
+      "wallColor": "#a8553f",
+      "trimColor": "#bdb9b0",
+      "windowColor": "#36404a",
+      "window": "frame",
+      "bayWidth": 3.8,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 0.6
+      }
+    },
+    "white_corridor": {
+      "_note": "建築系館：白色開放走廊量體＋紅磚樓梯間",
+      "wall": "plaster",
+      "wallColor": "#e4e2dc",
+      "trimColor": "#f2f1ec",
+      "windowColor": "#555a5e",
+      "window": "corridor",
+      "bayWidth": 3.6,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 0.9
+      }
+    },
+    "tan_dorm": {
+      "_note": "光復一、二舍：黃褐色磁磚高層宿舍、密集陽台",
+      "wall": "tile",
+      "wallColor": "#c89a56",
+      "trimColor": "#e0c690",
+      "windowColor": "#7a6447",
+      "window": "corridor",
+      "bayWidth": 3.2,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.2
+      }
+    },
+    "brick_dorm": {
+      "_note": "光復三舍：深紅褐磚、白色小陽台",
+      "wall": "brick",
+      "wallColor": "#8e4636",
+      "trimColor": "#ece6d6",
+      "windowColor": "#3a4046",
+      "window": "grid",
+      "bayWidth": 3.2,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.0
+      }
+    },
+    "brick_tower": {
+      "_note": "規劃設計大樓、建築科技大樓：橘紅磚＋灰色混凝土",
+      "wall": "brick",
+      "wallColor": "#b45a3c",
+      "trimColor": "#a7a49c",
+      "windowColor": "#3a434c",
+      "window": "grid",
+      "bayWidth": 3.2,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.0
+      }
+    },
+    "concrete_gray": {
+      "_note": "灰色清水混凝土牆面",
+      "wall": "concrete",
+      "wallColor": "#a9a7a0",
+      "trimColor": "#8f8d87",
+      "windowColor": "#3a434c",
+      "window": "grid",
+      "bayWidth": 3.2,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.0
+      }
+    },
+    "stone_arcade": {
+      "_note": "建築科技大樓：灰色石材基座，每開間一個兩層樓高的拱（依 Google 街景）",
+      "wall": "stone",
+      "wallColor": "#bdb8ae",
+      "trimColor": "#cdc9c0",
+      "windowColor": "#5a5450",
+      "window": "arcade",
+      "bayWidth": 4.6,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 0
+      }
+    },
+    "granite_brick": {
+      "_note": "都計系館：紅磚＋灰色花崗石柱與線腳、直立窗",
+      "wall": "brick",
+      "wallColor": "#b0573c",
+      "trimColor": "#c9c5bc",
+      "windowColor": "#3a434c",
+      "window": "tall",
+      "bayWidth": 3.4,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.0
+      }
+    },
+    "brick_loggia_jp": {
+      "_note": "禮賢樓、大成館：日治時期紅磚兩層樓、磚柱＋米白拱圈與欄杆；拱廊內是米色牆（依 Google 街景），灰瓦四坡屋頂",
+      "wall": "brick",
+      "wallColor": "#a44a35",
+      "trimColor": "#ece6d4",
+      "windowColor": "#b9b3a5",
+      "window": "loggia",
+      "bayWidth": 3.6,
+      "roof": {
+        "shape": "hip",
+        "color": "#4d5258",
+        "pitch": 28,
+        "overhang": 0.7
+      }
+    },
+    "brick_concrete_trim": {
+      "_note": "修齊大樓：紅磚＋淺灰混凝土框、量體退縮",
+      "wall": "brick",
+      "wallColor": "#a5513c",
+      "trimColor": "#d8d6d0",
+      "windowColor": "#36404a",
+      "window": "grid",
+      "bayWidth": 3.4,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.0
+      }
+    },
+    "green_tile_roof": {
+      "_note": "修齊大樓頂部的綠色斜屋頂",
+      "wall": "plaster",
+      "wallColor": "#d8d6d0",
+      "trimColor": "#d8d6d0",
+      "windowColor": "#36404a",
+      "window": "none",
+      "roof": {
+        "shape": "hip",
+        "color": "#3f8a66",
+        "pitch": 30,
+        "overhang": 0.4
+      }
+    },
+    "ochre_band": {
+      "_note": "規劃設計大樓頂層的黃色量體",
+      "wall": "plaster",
+      "wallColor": "#d6a447",
+      "trimColor": "#c9973e",
+      "windowColor": "#3a434c",
+      "window": "grid",
+      "bayWidth": 3.2,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 0.8
+      }
+    },
+    "white_modern": {
+      "_note": "成大創意基地：白色量體＋大面玻璃",
+      "wall": "plaster",
+      "wallColor": "#e8e8e4",
+      "trimColor": "#c9c9c4",
+      "windowColor": "#3c4752",
+      "window": "curtain",
+      "bayWidth": 3.0,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 0.8
+      }
+    },
+    "gray_balcony": {
+      "_note": "工設二館：白色連續陽台板、深藍灰柱、帶藍色的玻璃",
+      "wall": "concrete",
+      "wallColor": "#4f5a66",
+      "trimColor": "#e6e4dc",
+      "windowColor": "#5f7f8c",
+      "window": "corridor",
+      "bayWidth": 4.0,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 0.9
+      }
+    },
+    "metal_siding": {
+      "_note": "成大創意基地低層量體：灰色金屬浪板、百葉、少窗",
+      "wall": "concrete",
+      "wallColor": "#8d9195",
+      "trimColor": "#a9adb1",
+      "windowColor": "#4a5258",
+      "window": "ribbon",
+      "bayWidth": 3.0,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 0.6
+      }
+    },
+    "brick_column_corridor": {
+      "_note": "建築系館群：橘紅磚柱＋白色走廊欄杆板、深色走廊",
+      "wall": "brick",
+      "wallColor": "#b8613f",
+      "trimColor": "#eceae4",
+      "windowColor": "#4b4f52",
+      "window": "corridor",
+      "bayWidth": 4.2,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 0.9
+      }
+    },
+    "red_frame_white": {
+      "_note": "軍訓大樓：白牆、紅色柱樑、白色走廊欄杆（依 Google 街景 360 照片）",
+      "wall": "plaster",
+      "wallColor": "#b8412f",
+      "trimColor": "#f0eee8",
+      "windowColor": "#d4d0c6",
+      "window": "corridor",
+      "bayWidth": 4.4,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 0.8
+      }
+    },
+    "brick_stand": {
+      "_note": "光復操場司令台：紅磚基座、拱形開口（依 Google 街景 360 照片）",
+      "wall": "brick",
+      "wallColor": "#a14a36",
+      "trimColor": "#b85a42",
+      "windowColor": "#5e554d",
+      "window": "arcade",
+      "bayWidth": 4.0,
+      "roof": {
+        "shape": "flat",
+        "color": "#b05a44",
+        "parapet": 1.0
+      }
+    },
+    "beige_tile_modern": {
+      "_note": "理學教學大樓：米色磁磚、規則窗格",
+      "wall": "tile",
+      "wallColor": "#d8c9ae",
+      "trimColor": "#ece4d3",
+      "windowColor": "#3c454e",
+      "window": "grid",
+      "bayWidth": 3.2,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.0
+      }
+    },
+    "tan_tower": {
+      "_note": "三系館（資訊、資源、材料系大樓）：黃褐色磁磚高樓、深色窗格",
+      "wall": "tile",
+      "wallColor": "#c9a983",
+      "trimColor": "#b7966f",
+      "windowColor": "#33393f",
+      "window": "grid",
+      "bayWidth": 3.0,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.2
+      }
+    },
+    "white_colonnade": {
+      "_note": "土木系館：白色量體、通高細白柱列、出挑平屋頂",
+      "wall": "plaster",
+      "wallColor": "#ecebe6",
+      "trimColor": "#f7f6f2",
+      "windowColor": "#3d4248",
+      "window": "tall",
+      "bayWidth": 3.0,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 0.6
+      }
+    },
+    "gray_fins": {
+      "_note": "數學系館、資訊大樓正面：灰白混凝土直向遮陽板",
+      "wall": "concrete",
+      "wallColor": "#aaa79f",
+      "trimColor": "#c4c1b9",
+      "windowColor": "#2f353b",
+      "window": "tall",
+      "bayWidth": 1.8,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.0
+      }
+    },
+    "tan_frame": {
+      "_note": "水利系館：黃褐色深框混凝土",
+      "wall": "concrete",
+      "wallColor": "#b48f63",
+      "trimColor": "#c9a77d",
+      "windowColor": "#34393e",
+      "window": "frame",
+      "bayWidth": 3.6,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.0
+      }
+    },
+    "pavilion_timber": {
+      "_note": "新園：單層白色量體＋玻璃亭、橘色木構屋頂",
+      "wall": "plaster",
+      "wallColor": "#e8e8e4",
+      "trimColor": "#c9c9c4",
+      "windowColor": "#4b5a63",
+      "window": "curtain",
+      "bayWidth": 3.0,
+      "roof": {
+        "shape": "flat",
+        "color": "#b8743c",
+        "parapet": 0.3
+      }
+    },
+    "jp_dark_brick": {
+      "_note": "格致堂：日治時期深紅褐磚、直立窗、灰瓦屋頂",
+      "wall": "brick",
+      "wallColor": "#7e3f30",
+      "trimColor": "#cfc7b8",
+      "windowColor": "#2e3434",
+      "window": "tall",
+      "bayWidth": 3.4,
+      "roof": {
+        "shape": "hip",
+        "color": "#55585c",
+        "pitch": 30,
+        "overhang": 0.6
+      }
+    },
+    "jp_stucco_arch": {
+      "_note": "舊資訊系館、舊資源系館：日治時期米粉色洗石／粉刷、紅褐拱圈、灰瓦屋頂",
+      "wall": "plaster",
+      "wallColor": "#d9c2b0",
+      "trimColor": "#8a4a3a",
+      "windowColor": "#4a4440",
+      "window": "loggia",
+      "bayWidth": 3.6,
+      "roof": {
+        "shape": "hip",
+        "color": "#5a5d61",
+        "pitch": 28,
+        "overhang": 0.6
+      }
+    },
+    "salmon_tile_library": {
+      "_note": "總圖書館：鮭粉色磁磚、玻璃、水平帶",
+      "wall": "tile",
+      "wallColor": "#d9a492",
+      "trimColor": "#efe2da",
+      "windowColor": "#3d4d5a",
+      "window": "ribbon",
+      "bayWidth": 3.6,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.0
+      }
+    },
+    "white_tile": {
+      "_note": "白色磁磚量體",
+      "wall": "tile",
+      "wallColor": "#e9e7e1",
+      "trimColor": "#cfcbc2",
+      "windowColor": "#3a4652",
+      "window": "grid",
+      "bayWidth": 3.2,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.0
+      }
+    },
+    "beige_balcony": {
+      "_note": "物理二館：米灰色量體、每層連續陽台帶",
+      "wall": "concrete",
+      "wallColor": "#c4b9a6",
+      "trimColor": "#dcd3c3",
+      "windowColor": "#4a4e52",
+      "window": "corridor",
+      "bayWidth": 3.6,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.0
+      }
+    },
+    "concrete_frame_beige": {
+      "_note": "綜合大樓（光電系）：米灰色混凝土框架、水平窗帶",
+      "wall": "concrete",
+      "wallColor": "#b3ab9c",
+      "trimColor": "#c9c2b4",
+      "windowColor": "#3a3f44",
+      "window": "frame",
+      "bayWidth": 3.6,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.0
+      }
+    },
+    "white_tower_strip": {
+      "_note": "材料系、資源系大樓（2025 街景）：白色高樓、深灰穿孔板直條",
+      "wall": "tile",
+      "wallColor": "#e3e1db",
+      "trimColor": "#6d7073",
+      "windowColor": "#3a4550",
+      "window": "grid",
+      "bayWidth": 3.4,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.2
+      }
+    },
+    "gray_perforated": {
+      "_note": "水利系新館（2025 街景）：深灰色圓孔穿孔板外牆",
+      "wall": "concrete",
+      "wallColor": "#7f8386",
+      "trimColor": "#a4a8ab",
+      "windowColor": "#3a4048",
+      "window": "grid",
+      "bayWidth": 4.8,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 0.8
+      }
+    },
+    "steel_truss_lab": {
+      "_note": "土木系結構實驗室（2025 街景）：灰色鋼桁架外露、白牆高跨廠房",
+      "wall": "concrete",
+      "wallColor": "#c9cbcb",
+      "trimColor": "#6f7478",
+      "windowColor": "#4a5258",
+      "window": "frame",
+      "bayWidth": 5,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 0.4
+      }
+    },
+    "jp_hospital_ward": {
+      "_note": "台文系館（原臺南衛戍病院）：日治時期紅磚平房病棟、磚柱拱廊＋白色欄杆、深綠灰瓦四坡屋頂",
+      "wall": "brick",
+      "wallColor": "#9e4a35",
+      "trimColor": "#ece6d4",
+      "windowColor": "#c4bba9",
+      "window": "loggia",
+      "bayWidth": 3.4,
+      "roof": {
+        "shape": "hip",
+        "color": "#4e5a55",
+        "pitch": 26,
+        "overhang": 0.8
+      }
+    },
+    "jp_timber_white": {
+      "_note": "台文講堂：日式木造平房、白色粉刷牆、深褐木框、灰瓦屋頂",
+      "wall": "plaster",
+      "wallColor": "#ede8dc",
+      "trimColor": "#6f5038",
+      "windowColor": "#4a4038",
+      "window": "frame",
+      "bayWidth": 2.6,
+      "roof": {
+        "shape": "hip",
+        "color": "#5b5f63",
+        "pitch": 25,
+        "overhang": 0.9
+      }
+    },
+    "green_magic": {
+      "_note": "綠色魔法學校：白色量體、木作遮陽、屋頂通風塔與紅白鐵塔",
+      "wall": "plaster",
+      "wallColor": "#ecebe4",
+      "trimColor": "#9a6a45",
+      "windowColor": "#4f6f78",
+      "window": "ribbon",
+      "bayWidth": 3.4,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 0.8
+      }
+    },
+    "white_teal_glass": {
+      "_note": "統一健康大樓：白灰色弧形量體、青綠色玻璃橫向窗帶",
+      "wall": "plaster",
+      "wallColor": "#e3e5e2",
+      "trimColor": "#c4c9c6",
+      "windowColor": "#5f9298",
+      "window": "ribbon",
+      "bayWidth": 3.6,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1
+      }
+    },
+    "beige_tile_teal": {
+      "_note": "醫護大樓：米黃色磁磚高樓、青綠色窗框",
+      "wall": "tile",
+      "wallColor": "#d8c6a6",
+      "trimColor": "#6fa59c",
+      "windowColor": "#3d5a5c",
+      "window": "grid",
+      "bayWidth": 3.2,
+      "roof": {
+        "shape": "flat",
+        "color": "auto",
+        "parapet": 1.2
+      }
+    },
+    "city_gate_pavilion": {
+      "_note": "小西門城樓：紅磚、小方窗、紅瓦四坡屋頂、出簷",
+      "wall": "brick",
+      "wallColor": "#a95036",
+      "trimColor": "#e6dccb",
+      "windowColor": "#2b2622",
+      "window": "tall",
+      "bayWidth": 2.6,
+      "roof": {
+        "shape": "hip",
+        "color": "#c8553a",
+        "pitch": 32,
+        "overhang": 0.9
+      }
+    },
+    "student_center_base": {
+      "_note": "第一學生活動中心一樓：白牆、大片玻璃，藏在柱廊後",
+      "wall": "concrete",
+      "wallColor": "#ecebe6",
+      "trimColor": "#f4f3ef",
+      "windowColor": "#3a4650",
+      "window": "frame",
+      "bayWidth": 4.5,
+      "roof": {
+        "shape": "flat",
+        "color": "#cfccc4"
+      }
+    },
+    "tainan_station": {
+      "_note": "臺南車站舊站房：淺灰白釉面磚、圓拱窗（arcade 的拱間牆用 trimColor，所以設成牆色）、平頂女兒牆；褐色洗石子表現在雨遮",
+      "wall": "tile",
+      "wallColor": "#dcdbd5",
+      "trimColor": "#d8d6cf",
+      "windowColor": "#2f3437",
+      "window": "arcade",
+      "bayWidth": 4.6,
+      "roof": {
+        "shape": "flat",
+        "color": "#c9c4b8",
+        "parapet": 0.8
+      }
+    },
+    "tainan_station_canopy": {
+      "_note": "臺南車站舊站房雨遮：褐色洗石子懸挑板",
+      "wall": "concrete",
+      "wallColor": "#a8977a",
+      "trimColor": "#a8977a",
+      "windowColor": "#2f3437",
+      "window": "none",
+      "bayWidth": 4,
+      "roof": {
+        "shape": "flat",
+        "color": "#a8977a"
+      }
+    }
+  }
+}
