@@ -326,7 +326,8 @@ export async function buildBuildingMeshes(buildings: Building[], roofColorOf: (b
     m.castShadow = true;
     m.receiveShadow = true;
     m.matrixAutoUpdate = false;
-    (m.geometry as unknown as { computeBoundsTree: () => void }).computeBoundsTree();
+    // indirect：不重排三角形，點選時的 faceIndex 才能對回 triangleToBuilding
+    (m.geometry as unknown as { computeBoundsTree: (o: { indirect: boolean }) => void }).computeBoundsTree({ indirect: true });
   }
   return meshes;
 }

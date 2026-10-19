@@ -4,6 +4,8 @@
 
 **線上試玩：https://yoyohuang1012.github.io/ncku-campus-3d/** ・ 規格書與開發歷程：[SPEC.md](SPEC.md)
 
+![新臺南車站 2 號出口與迎新學長對話](screenshots/02_NPC對話.png)
+
 目前進度：建築位置與輪廓來自 OpenStreetMap，外觀依成大素材網（material.ncku.edu.tw）的官方照片與 Google 街景逐棟調整。光復、成功、力行三個校區的建築、圍牆、行道樹、路燈座椅、雕塑，以及勝利路天橋、大學路牌坊、光復大門、成功湖都已做好，等最後一起校對。
 
 ## 執行
