@@ -74,10 +74,34 @@ export interface ColumnsFeature {
   color: string;
 }
 
-export type BuildingFeature = ColumnsFeature;
+/** 牆面細橫線：沿 points（一段牆面）在各高度畫一條有顏色的細線，例如社科大樓的紅黃藍線 */
+export interface BandsFeature {
+  type: 'bands';
+  points: XZ[];
+  /** 牆面朝外的方向（由 edge 自動算出） */
+  normal?: XZ;
+  /** [離地高度, 顏色] */
+  bands: [number, string][];
+  /** 線的高度（預設 0.18 公尺） */
+  thickness?: number;
+  color: string;
+}
+
+/** 牆面上的字（例如直書的大樓名稱）：放在 points 這段牆面的中點、離地 y 公尺，size 是字高 */
+export interface SignFeature {
+  type: 'sign';
+  points: XZ[];
+  normal?: XZ;
+  text: string;
+  y: number;
+  size: number;
+  color: string;
+}
+
+export type BuildingFeature = ColumnsFeature | BandsFeature | SignFeature;
 
 export type WallMaterial = 'brick' | 'tile' | 'plaster' | 'concrete' | 'stone';
-export type WindowStyle = 'grid' | 'ribbon' | 'tall' | 'frame' | 'arcade' | 'loggia' | 'corridor' | 'curtain' | 'none';
+export type WindowStyle = 'grid' | 'ribbon' | 'tall' | 'frame' | 'arcade' | 'loggia' | 'corridor' | 'curtain' | 'louver' | 'none';
 
 export interface RoofSpec {
   shape: 'flat' | 'hip' | 'curved';
@@ -267,6 +291,10 @@ export interface GameConfig {
   ground: { mode: 'ortho' | 'flat'; zoom: number; mobileZoom: number; drawRoads: boolean; drawAreas: boolean; drawWater?: boolean };
   labels: { maxDistance: number; maxCount: number };
   npc: { interactDistance: number };
+  /** 路人：沿步行路網走動的人（不能對話）。count 電腦版人數、mobileCount 手機版人數；
+   *  spawnRadius 在玩家多遠內出現、minSpawnDistance 不要在玩家眼前憑空出現、despawnRadius 走太遠就換到玩家附近；
+   *  speed 走路速度範圍（m/s）；density 是 0~23 點每小時的人數比例 */
+  walkers?: { count: number; mobileCount: number; spawnRadius: number; minSpawnDistance: number; despawnRadius: number; speed: [number, number]; shadows: boolean; density: number[] };
   navigation: { arriveDistance: number; arrowSpacing: number };
   clock: { mode: 'real' | 'scaled'; start: string; timeScale: number };
   minimap: { base: 'ortho' | 'vector'; smallSize: number; smallRadius: number; pixelsPerMeter: number };
@@ -485,6 +513,9 @@ export interface WorldConfig {
 export interface StreetscapeConfig {
   /** 林蔭大道：沿指定名稱的道路兩側每 spacing 公尺種一棵（kind: palm 椰子樹、tree 一般樹）；replace 會先移掉路旁原本的樹；within 只種在某點半徑內 */
   avenues?: { road: string; kind: 'palm' | 'tree'; spacing: number; offset: number; replace?: boolean; within?: LocationRef & { radius: number } }[];
+  /** 停車場自動停滿車：area 是停車場的 id（或用 at＋radius 找最近的停車場），沿每條夠長的邊往內排一列，
+   *  kind 是設施種類（scooter 機車），spacing 每台間距、depth 車長、inset 離邊距離、fill 有停車的比例（0~1） */
+  parkingLots?: { area?: string; at?: LocationRef; radius?: number; kind: string; spacing: number; depth: number; inset: number; fill: number; minEdge?: number }[];
   /** 這些種類的設施（候車亭、站牌）沒寫朝向時，自動面向 maxDistance 公尺內最近的車道 */
   alignProps?: { kinds: string[]; maxDistance: number };
   /** 依航照綠色比例在校區內補樹：每 spacing 公尺取樣，半徑 radius 內綠色比例 ≥ minGreen 就種一棵 */
@@ -515,4 +546,27 @@ export interface StreetscapeConfig {
       inside?: { offset: number; spacing: number };
     };
   }[];
+}
+
+/** npcs/crowd.json：路人的外觀隨機清單 */
+export interface CrowdPalette {
+  shirts: string[];
+  pants: string[];
+  skins: string[];
+  hairs: string[];
+  bags: string[];
+  /** 背包的比例 0~1 */
+  bagChance: number;
+}
+
+/** overrides/wildlife.json：水池裡的動物。water 是水域名稱或 id，kind：duck 鴨子（在水面游）、turtle 烏龜（在岸邊曬太陽、偶爾下水） */
+export interface WildlifeGroup {
+  water: string;
+  kind: 'duck' | 'turtle';
+  count: number;
+  /** 移動速度（m/s） */
+  speed: number;
+  colors: string[];
+  /** 體長（公尺） */
+  size: number;
 }

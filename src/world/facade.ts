@@ -113,6 +113,12 @@ function windowMask(style: WindowStyle, fx: number, fy: number): [number, number
       const mx = Math.abs((fx * 2) % 1 - 0.5) > 0.47, my = fy < 0.05 || Math.abs(fy - 0.55) < 0.012;
       return mx || my ? [0, 1] : [1, 0];
     }
+    case 'louver': {
+      // 整面鋁格柵：細密的水平百葉（線腳色）＋百葉間的陰影（玻璃色），開間兩側有細直料
+      if (fx < 0.015 || fx > 0.985) return [0, 1];
+      const s = (fy * 11) % 1;
+      return s < 0.5 ? [0, 1] : [0.55, 0];
+    }
     case 'arcade': {
       // 拱廊：拱形開口（深色迴廊），周圍為白色柱與拱
       const cx = 0.5, spring = 0.58, r = 0.34;

@@ -27,6 +27,11 @@ export class NavGraph {
     return (cx + 32768) * 65536 + (cz + 32768);
   }
 
+  /** 相鄰節點（路人隨機走路用） */
+  neighbors(i: number): number[] {
+    return this.adj[i]?.map((e) => e.to) ?? [];
+  }
+
   /** 最近的路網節點；filter 可排除不想要的點（例如在建築裡的） */
   nearest(x: number, z: number, filter?: (i: number) => boolean): number {
     const cx = Math.floor(x / this.cell), cz = Math.floor(z / this.cell);

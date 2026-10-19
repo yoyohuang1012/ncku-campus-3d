@@ -1,0 +1,35 @@
+{
+  "_comment": [
+    "水池裡的動物。water：水域名稱或 id；kind：duck 鴨子（水面隨機游、偶爾停下）、turtle 烏龜（在池岸石邊曬太陽，隔一陣子下水游到別處岸邊）",
+    "colors：鴨子寫「身體/頭」、烏龜寫「殼/皮膚」，依序輪流使用；size 是體長（公尺）、speed 是游速（m/s）",
+    "使用者說明：成功湖有烏龜和鴨子；種類（白色家鴨、綠頭鴨、烏龜）與數量推估，待校對"
+  ],
+  "groups": [
+    {
+      "water": "成功湖",
+      "kind": "duck",
+      "count": 12,
+      "speed": 0.45,
+      "size": 0.8,
+      "colors": [
+        "#f6f3ec/#f6f3ec",
+        "#8a6a4a/#2f6b3a",
+        "#f6f3ec/#f6f3ec",
+        "#9a7a5a/#9a7a5a",
+        "#f6f3ec/#f6f3ec"
+      ]
+    },
+    {
+      "water": "成功湖",
+      "kind": "turtle",
+      "count": 16,
+      "speed": 0.18,
+      "size": 0.5,
+      "colors": [
+        "#4b5a35/#6b7a45",
+        "#3f4a30/#5f6b3d",
+        "#5a5638/#7a7a4a"
+      ]
+    }
+  ]
+}

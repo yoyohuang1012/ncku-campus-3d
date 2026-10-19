@@ -37,14 +37,16 @@ npm run build:pages
 | 檔案 | 內容 |
 |---|---|
 | `config/world.json` | 地圖範圍、玩家起點、校區定義、鐵路開關、預設樓層數 |
-| `config/game.json` | 走路速度、攝影機、畫質、時鐘模式、小地圖大小；`ground.drawRoads`、`drawAreas`、`drawWater` 決定航照上要不要再畫馬路與標線、操場球場草地、水面 |
+| `config/game.json` | 走路速度、攝影機、畫質、時鐘模式、小地圖大小；`walkers` 是路人（人數、出現範圍、速度、每小時人潮比例）；`ground.drawRoads`、`drawAreas`、`drawWater` 決定航照上要不要再畫馬路與標線、操場球場草地、水面 |
 | `config/style.json` | 地面、樹（顏色與大小）、圍牆、路線等顏色；`theme` 是全域色調（彩度、亮度倍率，套在所有資料顏色上），`groundGrade` 調航照地面，`lighting` 是天空與光線，`water` 是水面、池岸與跨水小橋的顏色，`barrierThickness` 是各種圍牆的厚度（府城城垣很厚），`markings` 是道路標線（雙黃線、白色虛線、路緣線、斑馬線） |
-| `config/building-styles.json` | 建築外觀風格：牆面材質、牆色、窗型、屋頂形式（平頂／四坡／弧形） |
-| `overrides/buildings.json` | 手動修正建築：名稱、別名、樓層、外觀風格、入口、教室清單（`_ref` 記錄外觀依據） |
+| `config/building-styles.json` | 建築外觀風格：牆面材質、牆色、窗型（含 `louver` 整面鋁格柵）、屋頂形式（平頂／四坡／弧形） |
+| `overrides/buildings.json` | 手動修正建築：名稱、別名、樓層、外觀風格、入口、教室清單（`_ref` 記錄外觀依據）；`features` 可加柱列（`columns`）、牆面彩色細橫線（`bands`）、牆面字（`sign`，例如直書的大樓名稱） |
 | `npcs/npcs.json` | NPC 名單與排程（哪天、幾點、在哪裡、講哪段對話） |
+| `npcs/crowd.json` | 路人的外觀隨機清單（上衣、褲子、膚色、髮色、背包） |
+| `overrides/wildlife.json` | 水池裡的動物：成功湖的鴨子（水面游）與烏龜（岸邊曬太陽、偶爾下水），數量、顏色、體型、速度 |
 | `dialogues/dialogues.json` | 對話樹與選項動作 |
 | `i18n/zh-TW.json` | 所有介面與對話文字（之後加英文就新增 `en.json`） |
-| `overrides/streetscape.json` | 沿校區邊界自動產生的圍牆（出入口自動斷開，`wall.kind` 選材質、`wall.openings` 補 OSM 沒畫的開口）與內外兩排行道樹；`furniture` 自動擺外圍路燈、校內步道燈、座椅與垃圾桶；`canopy` 依航照綠色比例在校區內補樹；`avenues` 沿指定道路種一整排樹（雲平大道的椰子樹）；`alignProps` 讓候車亭、站牌自動面向車道 |
+| `overrides/streetscape.json` | 沿校區邊界自動產生的圍牆（出入口自動斷開，`wall.kind` 選材質、`wall.openings` 補 OSM 沒畫的開口）與內外兩排行道樹；`furniture` 自動擺外圍路燈、校內步道燈、座椅與垃圾桶；`canopy` 依航照綠色比例在校區內補樹；`avenues` 沿指定道路種一整排樹（雲平大道的椰子樹）；`alignProps` 讓候車亭、站牌自動面向車道；`parkingLots` 讓停車場自動停滿機車（沿邊排列、`fill` 控制停車比例） |
 | `overrides/props.json` | 雕塑的個別造型（依名稱或位置對到 OSM 設施）與新增設施（牌坊、校門警衛亭、旗海）；造型種類見 `src/world/props.ts`，顏色在 `config/style.json` 的 `props` |
 | `overrides/landmarks.json` | OSM 沒有的地標結構：跨路的鋼桁架天橋（`skybridges`）、走得下去的下沉廣場（`sunkenPlazas`，長方形坑＋階梯＋B1 入口門；`screens` 放螢幕或整面飾板，飾板可設 `seams` 分格與 `discs` 圓形裝飾，`offset` 控制前後層）、大頂棚（`canopies`）、走得上去的棧橋（`walkways`，可加鋼門架）、出入口站體／石牆／指示柱（`pavilions`，可在牆上寫字）。下沉廣場的坑底高度是負的，設施要放在坑底時在 `overrides/props.json` 的 `add` 寫 `y`；頂棚柱子落在坑裡或站體量體裡會自動省略。水池和池上小橋不用寫，直接用 OSM 的水域和 bridge 步道 |
 | `overrides/extra-buildings.json` | OSM 缺漏、從航照描出來的建築（塔樓、街屋排） |

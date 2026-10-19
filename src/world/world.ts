@@ -8,6 +8,7 @@ import type { Building, BuildingPart, Region, StyleConfig, XZ } from '../core/ty
 import { Collision, pointInRing } from './collision';
 import { buildBuildingMeshes } from './buildings';
 import { buildMarkings } from './markings';
+import { labelMesh } from './label';
 import { canopyMesh, findFootbridges, footbridgeMesh, groundMask, nearFootbridge, pavilionMeshes, plazaShape, skybridgeMesh, sunkenPlazaMesh, walkwayDeck, walkwayMesh, waterMeshes } from './landmarks';
 import { buildPropMeshes } from './props';
 import { FlatBuilder, hash01, RibbonBuilder } from './geometry';
@@ -218,6 +219,16 @@ export class World {
     };
     this.buildingMeshes = await buildBuildingMeshes(this.buildings, roofColorOf);
     for (const m of this.buildingMeshes) this.group.add(m);
+    // 牆面上的字（大樓名稱等）
+    for (const b of this.buildings) for (const f of b.features) {
+      if (f.type !== 'sign' || f.points.length < 2) continue;
+      const [p, q] = f.points, n = f.normal ?? [0, 1];
+      const nl = Math.hypot(n[0], n[1]) || 1;
+      const m = labelMesh(f.text, f.color, f.size);
+      m.position.set((p[0] + q[0]) / 2 + (n[0] / nl) * 0.08, f.y, (p[1] + q[1]) / 2 + (n[1] / nl) * 0.08);
+      m.rotation.y = Math.atan2(n[0], n[1]);
+      this.group.add(m);
+    }
     this.cameraObstacles.push(...this.buildingMeshes);
 
     // 碰撞：地面層的建築（懸空的空橋、雨遮不擋路）

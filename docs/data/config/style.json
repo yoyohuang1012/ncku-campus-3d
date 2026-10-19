@@ -212,6 +212,8 @@
       "#8a96a3",
       "#f2b632"
     ],
+    "tire": "#25282d",
+    "scooterTints": ["#f2f2f2", "#1f2430", "#d23b3b", "#2c5fb8", "#8a96a3", "#f2b632", "#e9e4da", "#4a7a5a", "#9c9fa3", "#f2f2f2"],
     "youbike": "#f6a623",
     "shelterRoof": "#eef1f4",
     "shelterGlass": "#a9dcf0",

@@ -1,7 +1,7 @@
 // 建築網格：依外觀（牆面材質 × 窗型）分組合併成少數網格；屋頂有平屋頂＋女兒牆、四坡、弧形。
 // 四坡與弧形屋頂用 straight skeleton（直骨架）演算法，任何輪廓（L 形、U 形、有中庭）都能自動產生。
 import * as THREE from 'three';
-import type { Building, BuildingPart, ColumnsFeature, XZ } from '../core/types';
+import type { BandsFeature, Building, BuildingPart, ColumnsFeature, XZ } from '../core/types';
 import { facadeMaterial } from './facade';
 import { triangulate } from './geometry';
 
@@ -216,6 +216,30 @@ function subdivideCurved(g: GeoBuilder, a: number[], b: number[], c: number[], y
 /** 主體或附加量體共用的欄位 */
 type Volume = Pick<BuildingPart, 'outer' | 'holes' | 'levels' | 'height' | 'minHeight' | 'roofOnly' | 'look' | 'edgeLooks'>;
 
+/** 牆面細橫線：每條線是貼在牆外的薄長條（正面＋上下緣） */
+function addBands(g: GeoBuilder, f: BandsFeature, owner: number) {
+  const [p, q] = f.points;
+  if (!p || !q) return;
+  const n = f.normal ?? [0, 0];
+  const nl = Math.hypot(n[0], n[1]) || 1, nx = n[0] / nl, nz = n[1] / nl;
+  const t = (f.thickness ?? 0.18) / 2, d = 0.05;
+  // 正面三角形的法向量要朝外：(B-A)×(C-A) 的水平分量 ∝ (-tz, tx)，和 n 同向就照 A,B,C 繞
+  const tx = q[0] - p[0], tz = q[1] - p[1];
+  const flip = -tz * nx + tx * nz < 0;
+  const quad = (A: number[], B: number[], C: number[], D: number[], color: THREE.Color) => {
+    if (flip) { g.tri(A, C, B, color, owner); g.tri(A, D, C, color, owner); }
+    else { g.tri(A, B, C, color, owner); g.tri(A, C, D, color, owner); }
+  };
+  for (const [y, c] of f.bands) {
+    const color = new THREE.Color(c);
+    const P = (pt: XZ, yy: number, o: number) => [pt[0] + nx * o, yy, pt[1] + nz * o];
+    quad(P(p, y - t, d), P(q, y - t, d), P(q, y + t, d), P(p, y + t, d), color);
+    // 上緣（朝上）與下緣（朝下）
+    quad(P(p, y + t, d), P(q, y + t, d), P(q, y + t, 0), P(p, y + t, 0), color);
+    quad(P(p, y - t, 0), P(q, y - t, 0), P(q, y - t, d), P(p, y - t, d), color);
+  }
+}
+
 /** 柱列：方柱或八角柱，沿折線等距排列（兩端各一根） */
 function addColumns(g: GeoBuilder, f: ColumnsFeature, owner: number) {
   const color = new THREE.Color(f.color);
@@ -304,7 +328,10 @@ export async function buildBuildingMeshes(buildings: Building[], roofColorOf: (b
     const roofColor = roofColorOf(b);
     addVolume(b, bi, roofColor);
     for (const part of b.parts) addVolume(part, bi, roofColorOf(b, part));
-    for (const f of b.features) if (f.type === 'columns') addColumns(details, f, bi);
+    for (const f of b.features) {
+      if (f.type === 'columns') addColumns(details, f, bi);
+      else if (f.type === 'bands') addBands(details, f, bi);
+    }
   });
 
   const meshes: THREE.Mesh[] = [];

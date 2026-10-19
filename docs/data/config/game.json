@@ -1,8 +1,8 @@
 {
   "_comment": "遊戲手感與畫質設定。全部可以直接調整，不需要改程式。",
   "player": {
-    "walkSpeed": 3.5,
-    "runSpeed": 7.5,
+    "walkSpeed": 5.5,
+    "runSpeed": 11,
     "radius": 0.35,
     "turnSpeed": 10,
     "model": null
@@ -43,6 +43,17 @@
   },
   "npc": {
     "interactDistance": 2.8
+  },
+  "walkers": {
+    "_comment": "路人：沿步行路網走動。count 電腦版、mobileCount 手機版人數；spawnRadius 在玩家多遠內出現，minSpawnDistance 以內不在眼前憑空冒出（玩家背後可以近到 12 公尺），despawnRadius 走太遠就換到玩家附近；speed 速度範圍 m/s；density 是 0～23 點各小時的人數比例（上下課、午餐時段多，深夜少）",
+    "count": 70,
+    "mobileCount": 24,
+    "spawnRadius": 90,
+    "minSpawnDistance": 40,
+    "despawnRadius": 120,
+    "speed": [1.1, 1.7],
+    "shadows": true,
+    "density": [0.12, 0.08, 0.05, 0.04, 0.05, 0.12, 0.3, 0.6, 0.95, 0.85, 0.8, 0.9, 1.0, 1.0, 0.85, 0.85, 0.9, 1.0, 0.95, 0.8, 0.7, 0.55, 0.4, 0.22]
   },
   "navigation": {
     "arriveDistance": 12,

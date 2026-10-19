@@ -150,9 +150,51 @@ function alignToRoad(world: WorldData, a: NonNullable<StreetscapeConfig['alignPr
 }
 
 /** 依設定為每個校區產生圍牆與樹，直接加進 world.barriers / world.trees */
+/** 停車場停滿車：沿每條夠長的邊往內排一列（車頭朝邊），整台車都要在停車場裡、不和別台重疊 */
+function applyParkingLot(world: WorldData, lot: NonNullable<StreetscapeConfig['parkingLots']>[number], toXZ: (ref: LocationRef) => XZ | null) {
+  const parking = world.areas.filter((a) => a.kind === 'parking');
+  let area = lot.area ? parking.find((a) => a.id === lot.area) : undefined;
+  if (!area && lot.at) {
+    const at = toXZ(lot.at);
+    if (at) area = parking.find((a) => pointInRing(at[0], at[1], a.outer))
+      ?? parking.filter((a) => a.outer.some((p) => Math.hypot(p[0] - at[0], p[1] - at[1]) < (lot.radius ?? 30)))[0];
+  }
+  if (!area) { console.warn('streetscape.json 找不到停車場', lot); return; }
+  const ring = area.outer;
+  let signed = 0;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) signed += ring[j][0] * ring[i][1] - ring[i][0] * ring[j][1];
+  const placed: XZ[] = [];
+  const inside = (p: XZ) => pointInRing(p[0], p[1], ring);
+  // OSM 標在停車場裡的「一排機車」點位會和自動停的車重疊，先拿掉
+  world.props = world.props.filter((p) => !(p.kind === `${lot.kind}_parking` && inside(p.pos)));
+  for (let i = 0; i < ring.length; i++) {
+    const a = ring[i], b = ring[(i + 1) % ring.length];
+    const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
+    if (len < (lot.minEdge ?? 3)) continue;
+    const t: XZ = [(b[0] - a[0]) / len, (b[1] - a[1]) / len];
+    // 往內的法向量（逆時針時內側在左手邊）
+    const n: XZ = signed > 0 ? [-t[1], t[0]] : [t[1], -t[0]];
+    const rot = (Math.atan2(-n[0], -n[1]) * 180) / Math.PI;
+    for (let s = lot.spacing / 2; s < len - lot.spacing / 2; s += lot.spacing) {
+      const d = lot.inset + lot.depth / 2;
+      const c: XZ = [a[0] + t[0] * s + n[0] * d, a[1] + t[1] * s + n[1] * d];
+      const nose: XZ = [c[0] - n[0] * (lot.depth / 2), c[1] - n[1] * (lot.depth / 2)];
+      const tail: XZ = [c[0] + n[0] * (lot.depth / 2), c[1] + n[1] * (lot.depth / 2)];
+      if (!inside(c) || !inside(nose) || !inside(tail)) continue;
+      if (placed.some((p) => Math.hypot(p[0] - c[0], p[1] - c[1]) < Math.min(lot.spacing, lot.depth) * 0.9)) continue;
+      placed.push(c);
+      if (hash01(`${lot.kind}${c[0].toFixed(1)}${c[1].toFixed(1)}`) > lot.fill) continue;
+      // 停得不會完全整齊：角度差幾度
+      const jitter = (hash01(`${c[1]}${c[0]}`) - 0.5) * 12;
+      world.props.push({ kind: lot.kind, pos: c, rot: rot + jitter });
+    }
+  }
+}
+
 export function applyStreetscape(world: WorldData, cfg: StreetscapeConfig | null, toXZ: (ref: LocationRef) => XZ | null) {
   if (!cfg) return;
   for (const f of cfg.furniture ?? []) applyFurniture(world, f);
+  for (const lot of cfg.parkingLots ?? []) applyParkingLot(world, lot, toXZ);
   if (cfg.alignProps) alignToRoad(world, cfg.alignProps);
   for (const per of cfg.perimeters) {
     const region = world.regions.find((r) => r.id === per.region);

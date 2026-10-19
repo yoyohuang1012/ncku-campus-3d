@@ -795,6 +795,34 @@
         "shape": "flat",
         "color": "#a8977a"
       }
+    },
+    "ncku_soc_block": {
+      "_note": "社會科學院北翼：淺灰磁磚、規則窗格",
+      "wall": "tile",
+      "wallColor": "#c4c6c6",
+      "trimColor": "#dcdedf",
+      "windowColor": "#3a4650",
+      "window": "grid",
+      "bayWidth": 3.4,
+      "roof": {
+        "shape": "flat",
+        "color": "#a9a6a0",
+        "parapet": 1.0
+      }
+    },
+    "ncku_soc_tower": {
+      "_note": "社會科學院塔樓：灰色石材、少開窗",
+      "wall": "stone",
+      "wallColor": "#a9aaa9",
+      "trimColor": "#9aa3a8",
+      "windowColor": "#6d8796",
+      "window": "none",
+      "bayWidth": 4,
+      "roof": {
+        "shape": "flat",
+        "color": "#a9a6a0",
+        "parapet": 1.2
+      }
     }
   }
 }

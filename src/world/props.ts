@@ -28,6 +28,22 @@ function tube(points: [number, number, number][], r: number, c: THREE.ColorRepre
   return paint(new THREE.TubeGeometry(curve, 48, r, 6, false), c);
 }
 
+/** 一台機車（車頭朝本地 +z）。車身用 body 色，換色時整台車身一起換 */
+function scooterParts(body: THREE.ColorRepresentation, dark: THREE.ColorRepresentation, x = 0, rot = 0): THREE.BufferGeometry[] {
+  const wheel = (z: number) => paint(new THREE.CylinderGeometry(0.24, 0.24, 0.11, 12).rotateZ(Math.PI / 2).translate(0, 0.24, z), dark);
+  const parts = [
+    wheel(0.62), wheel(-0.62),
+    box(0.36, 0.1, 0.62, 0, 0.36, 0.08, body), // 踏板
+    box(0.48, 0.42, 0.72, 0, 0.62, -0.42, body), // 後車身
+    box(0.4, 0.1, 0.66, 0, 0.88, -0.38, dark), // 座墊
+    paint(new THREE.BoxGeometry(0.46, 0.72, 0.16).rotateX(-0.28).translate(0, 0.72, 0.5), body), // 前擋板
+    box(0.66, 0.05, 0.05, 0, 1.12, 0.58, dark), // 龍頭
+    box(0.2, 0.1, 0.08, 0, 1.0, 0.64, '#fff6d0'), // 大燈
+    box(0.14, 0.16, 0.36, 0, 0.38, 0.62, body), // 前土除
+  ];
+  return parts.map((g) => g.rotateY(rot).translate(x, 0, 0));
+}
+
 /** 一般設施（路燈、座椅、停車架…） */
 export function propGeometry(kind: string, P: PropPalette): THREE.BufferGeometry | null {
   const s = (k: string) => P[k] as string;
@@ -53,10 +69,14 @@ export function propGeometry(kind: string, P: PropPalette): THREE.BufferGeometry
       break;
     }
     case 'scooter_parking': {
+      // 路邊機車格：一排 6 台，顏色各不同
       const c = list('scooters');
-      for (let i = 0; i < 6; i++) parts.push(box(0.6, 1.0, 1.8, -2.5 + i * 1, 0.5, 0, c[i % c.length]));
+      for (let i = 0; i < 6; i++) parts.push(...scooterParts(c[i % c.length], s('tire'), -2.5 + i, (i % 2 ? 1 : -1) * 0.06));
       break;
     }
+    case 'scooter': // 單台機車；車身顏色由 InstancedMesh 每台個別上色（見 tintColors）
+      parts.push(...scooterParts('#ffffff', s('tire')));
+      break;
     case 'youbike':
       for (let i = 0; i < 4; i++) parts.push(box(0.1, 1.0, 1.7, -1.2 + i * 0.8, 0.5, 0, s('youbike')));
       parts.push(box(0.4, 1.6, 0.4, 2, 0.8, 0, s('youbike')));
@@ -236,11 +256,14 @@ export function buildPropMeshes(props: Prop[], P: PropPalette): THREE.Object3D[]
     if (!geo) continue;
     const im = new THREE.InstancedMesh(geo, new THREE.MeshLambertMaterial({ vertexColors: true }), list.length);
     const m = new THREE.Matrix4(), q = new THREE.Quaternion(), up = new THREE.Vector3(0, 1, 0), one = new THREE.Vector3(1, 1, 1);
+    // style.json props 裡有「種類 + Tints」的顏色清單時，每個設施各挑一色（例如 scooterTints：機車車身）
+    const tints = (P[`${kind}Tints`] as string[] | undefined)?.map((c) => new THREE.Color(c));
     list.forEach((p, i) => {
       const deg = p.rot ?? hash01(`${kind}${p.pos[0]}${p.pos[1]}`) * 360;
       q.setFromAxisAngle(up, (deg * Math.PI) / 180);
       m.compose(new THREE.Vector3(p.pos[0], p.y ?? 0, p.pos[1]), q, one);
       im.setMatrixAt(i, m);
+      if (tints?.length) im.setColorAt(i, tints[Math.floor(hash01(`${p.pos[1]}${p.pos[0]}`) * tints.length) % tints.length]);
     });
     im.castShadow = true;
     im.computeBoundingSphere();

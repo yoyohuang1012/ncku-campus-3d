@@ -2,6 +2,7 @@
 // 天橋位置在 overrides/landmarks.json；水池與步道橋直接用 OSM 的 water 區域和 bridge 步道。
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { labelMesh } from './label';
 import type { Area, Canopy, Pavilion, PlazaPanel, Road, Skybridge, SunkenPlaza, Walkway, WaterStyle, XZ } from '../core/types';
 import { pointInRing } from './collision';
 import { FlatBuilder } from './geometry';
@@ -348,26 +349,6 @@ export function walkwayMesh(list: Walkway[]): THREE.Mesh | null {
   return parts.length ? mesh(parts, new THREE.MeshLambertMaterial({ vertexColors: true })) : null;
 }
 
-/** 牆面上的字：畫在 canvas 上當貼圖（只用在少數招牌，數量不多） */
-function labelMesh(text: string, color: string, size: number): THREE.Mesh {
-  const lines = text.split('\n');
-  const px = 128, c = document.createElement('canvas');
-  const font = `bold ${px}px "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", sans-serif`;
-  const ctx = c.getContext('2d')!;
-  ctx.font = font;
-  const w = Math.max(...lines.map((l) => ctx.measureText(l).width)) + px * 0.4;
-  // 改 canvas 尺寸會把畫筆狀態清掉，字型要重設
-  c.width = Math.ceil(w); c.height = Math.ceil(lines.length * px * 1.25 + px * 0.2);
-  ctx.font = font;
-  ctx.fillStyle = color;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  lines.forEach((l, i) => ctx.fillText(l, c.width / 2, px * 0.6 + i * px * 1.25 + px * 0.1));
-  const tex = new THREE.CanvasTexture(c);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  const h = size * lines.length * 1.25 + size * 0.2, wm = (h * c.width) / c.height;
-  return new THREE.Mesh(new THREE.PlaneGeometry(wm, h), new THREE.MeshLambertMaterial({ map: tex, transparent: true, depthWrite: false }));
-}
 
 /** 出入口站體、石牆、指示柱：石材方盒、玻璃帷幕、往正面出挑的平頂與細柱、出口號碼牌、牆面字 */
 export function pavilionMeshes(list: Pavilion[]): THREE.Object3D[] {

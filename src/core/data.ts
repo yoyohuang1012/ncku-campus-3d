@@ -3,7 +3,7 @@ import { edgeRect, insetRing } from '../world/geometry';
 import { applyStreetscape } from '../world/streetscape';
 import { gradeDeep } from './theme';
 import type {
-  Appearance, Building, BuildingFeature, EdgeLook, BuildingPart, BuildingStyles, Dialogue, GameConfig, Canopy, LandmarksConfig, LocationRef, NavData, NpcDef, Pavilion, Prop, PropOverrides, RoofSpec, Skybridge, StreetscapeConfig, StyleConfig, SunkenPlaza, Walkway,
+  Appearance, Building, CrowdPalette, WildlifeGroup, BuildingFeature, EdgeLook, BuildingPart, BuildingStyles, Dialogue, GameConfig, Canopy, LandmarksConfig, LocationRef, NavData, NpcDef, Pavilion, Prop, PropOverrides, RoofSpec, Skybridge, StreetscapeConfig, StyleConfig, SunkenPlaza, Walkway,
   WorldConfig, WorldData, XZ,
 } from './types';
 
@@ -22,6 +22,10 @@ export interface GameData {
   walkways: Walkway[];
   pavilions: Pavilion[];
   npcs: NpcDef[];
+  /** 路人外觀清單（npcs/crowd.json），沒有就不放路人 */
+  crowd: CrowdPalette | null;
+  /** 水池動物（overrides/wildlife.json） */
+  wildlife: WildlifeGroup[];
   dialogues: Record<string, Dialogue>;
   strings: Record<string, string>;
   buildingById: Map<string, Building>;
@@ -132,7 +136,7 @@ export async function loadGameData(onProgress: (step: string) => void): Promise<
   const style = gradeDeep(rawStyle, theme, ['sky', 'lighting', 'route', 'theme', 'groundGrade']);
   const strings = await loadJson<Record<string, string>>(`i18n/${game.language}.json`);
   onProgress('world');
-  const [world, nav, rawOverrides, npcFile, dlgFile, rawStyles, streetscape, rawPropOverrides, rawLandmarks] = await Promise.all([
+  const [world, nav, rawOverrides, npcFile, dlgFile, rawStyles, streetscape, rawPropOverrides, rawLandmarks, crowd, wildlifeFile] = await Promise.all([
     loadJson<WorldData>('world/generated.json'),
     loadJson<NavData>('world/nav.json'),
     loadJson<{ buildings: Record<string, BuildingOverride> }>('overrides/buildings.json'),
@@ -142,6 +146,8 @@ export async function loadGameData(onProgress: (step: string) => void): Promise<
     loadOptionalJson<StreetscapeConfig>('overrides/streetscape.json'),
     loadOptionalJson<PropOverrides>('overrides/props.json'),
     loadOptionalJson<LandmarksConfig>('overrides/landmarks.json'),
+    loadOptionalJson<CrowdPalette>('npcs/crowd.json'),
+    loadOptionalJson<{ groups: WildlifeGroup[] }>('overrides/wildlife.json'),
   ]);
   const overrides = gradeDeep(rawOverrides, theme);
   const styles = gradeDeep(rawStyles, theme);
@@ -222,14 +228,15 @@ export async function loadGameData(onProgress: (step: string) => void): Promise<
   }
 
   function resolveFeature(b: Building, f: NonNullable<BuildingOverride['features']>[number]): BuildingFeature {
-    let points = f.points;
-    // 柱列可以寫 edge + attach：沿主體第 edge 條邊、往外 attach[2] 公尺
+    let points = f.points, normal: XZ | undefined;
+    // 柱列、細橫線、牆面字可以寫 edge + attach：沿主體第 edge 條邊、往外 attach[2] 公尺
     if (!points && f.edge !== undefined) {
-      const [s0, s1, off] = f.attach ?? [0, null, 2];
-      const r = edgeRect(b.outer, f.edge, [s0, s1, off, off]);
+      const [s0, s1, off] = f.attach ?? [0, null, f.type === 'columns' ? 2 : 0];
+      const r = edgeRect(b.outer, f.edge, [s0, s1, off, off + 1]);
       points = [r[0], r[1]];
+      normal = [r[3][0] - r[0][0], r[3][1] - r[0][1]];
     }
-    return { ...f, points: points ?? [], color: f.color ?? b.look.trimColor } as BuildingFeature;
+    return { ...f, points: points ?? [], normal, color: f.color ?? b.look.trimColor } as BuildingFeature;
   }
 
   function resolvePart(b: Building, p: PartOverride, o: BuildingOverride): BuildingPart {
@@ -291,7 +298,7 @@ export async function loadGameData(onProgress: (step: string) => void): Promise<
 
   onProgress('done');
   return {
-    world, nav, game, worldConfig, style, canopy: streetscape?.canopy ?? [], skybridges, sunkenPlazas, canopies, walkways, pavilions, npcs: npcFile.npcs, dialogues: dlgFile.dialogues, strings,
+    world, nav, game, worldConfig, style, canopy: streetscape?.canopy ?? [], skybridges, sunkenPlazas, canopies, walkways, pavilions, npcs: npcFile.npcs, crowd: crowd ? gradeDeep(crowd, theme) : null, wildlife: gradeDeep(wildlifeFile?.groups ?? [], theme), dialogues: dlgFile.dialogues, strings,
     buildingById, resolveLocation, latLonToXZ,
   };
 }

@@ -83,6 +83,87 @@
         },
         "hours": { "text": "dlg.library.hours" }
       }
+    },
+    "lake_uncle": {
+      "start": "hello",
+      "nodes": {
+        "hello": {"text": "dlg.lake.hello", "choices": [{"text": "dlg.lake.ask_feed", "next": "feed"}, {"text": "dlg.lake.ask_turtle", "next": "turtle"}, {"text": "dlg.common.bye", "action": {"type": "end"}}]},
+        "feed": {"text": "dlg.lake.feed", "choices": [{"text": "dlg.common.back", "next": "hello"}]},
+        "turtle": {"text": "dlg.lake.turtle", "choices": [{"text": "dlg.common.back", "next": "hello"}]}
+      }
+    },
+    "gate_guard": {
+      "start": "hello",
+      "nodes": {
+        "hello": {"text": "dlg.guard.hello", "choices": [{"text": "dlg.guard.ask_scooter", "next": "scooter"}, {"text": "dlg.guard.ask_lost", "next": "lost"}, {"text": "dlg.common.bye", "action": {"type": "end"}}]},
+        "scooter": {"text": "dlg.guard.scooter", "choices": [{"text": "dlg.common.guide_me", "action": {"type": "navigate", "target": "osm-w252925607"}}, {"text": "dlg.common.back", "next": "hello"}]},
+        "lost": {"text": "dlg.guard.lost", "choices": [{"text": "dlg.common.guide_me", "action": {"type": "navigate", "target": "osm-w251596111"}}, {"text": "dlg.common.back", "next": "hello"}]}
+      }
+    },
+    "runner": {
+      "start": "hello",
+      "nodes": {
+        "hello": {"text": "dlg.runner.hello", "choices": [{"text": "dlg.runner.ask_join", "next": "join"}, {"text": "dlg.common.bye", "action": {"type": "end"}}]},
+        "join": {"text": "dlg.runner.join"}
+      }
+    },
+    "hooper": {
+      "start": "hello",
+      "nodes": {
+        "hello": {"text": "dlg.hooper.hello", "choices": [{"text": "dlg.hooper.ask_court", "next": "court"}, {"text": "dlg.common.bye", "action": {"type": "end"}}]},
+        "court": {"text": "dlg.hooper.court"}
+      }
+    },
+    "soc_senior": {
+      "start": "hello",
+      "nodes": {
+        "hello": {"text": "dlg.soc.hello", "choices": [{"text": "dlg.soc.ask_scooter", "next": "scooter"}, {"text": "dlg.soc.ask_depts", "next": "depts"}, {"text": "dlg.common.bye", "action": {"type": "end"}}]},
+        "scooter": {"text": "dlg.soc.scooter", "choices": [{"text": "dlg.common.back", "next": "hello"}]},
+        "depts": {"text": "dlg.soc.depts", "choices": [{"text": "dlg.common.back", "next": "hello"}]}
+      }
+    },
+    "station_volunteer": {
+      "start": "hello",
+      "nodes": {
+        "hello": {"text": "dlg.station.hello", "choices": [{"text": "dlg.station.ask_exits", "next": "exits"}, {"text": "dlg.station.ask_old", "next": "old"}, {"text": "dlg.common.bye", "action": {"type": "end"}}]},
+        "exits": {"text": "dlg.station.exits", "choices": [{"text": "dlg.common.back", "next": "hello"}]},
+        "old": {"text": "dlg.station.old", "choices": [{"text": "dlg.common.guide_me", "action": {"type": "navigate", "target": "osm-r6477070"}}, {"text": "dlg.common.back", "next": "hello"}]}
+      }
+    },
+    "physics_prof": {
+      "start": "hello",
+      "nodes": {
+        "hello": {"text": "dlg.prof.hello", "choices": [{"text": "dlg.prof.ask_physics", "next": "physics"}, {"text": "dlg.common.bye", "action": {"type": "end"}}]},
+        "physics": {"text": "dlg.prof.physics"}
+      }
+    },
+    "exchange_student": {
+      "start": "hello",
+      "nodes": {
+        "hello": {"text": "dlg.lena.hello", "choices": [{"text": "dlg.lena.ask_food", "next": "food"}, {"text": "dlg.common.bye", "action": {"type": "end"}}]},
+        "food": {"text": "dlg.lena.food"}
+      }
+    },
+    "museum_guide": {
+      "start": "hello",
+      "nodes": {
+        "hello": {"text": "dlg.museum.hello", "choices": [{"text": "dlg.museum.ask_open", "next": "open"}, {"text": "dlg.common.bye", "action": {"type": "end"}}]},
+        "open": {"text": "dlg.museum.open"}
+      }
+    },
+    "photographer": {
+      "start": "hello",
+      "nodes": {
+        "hello": {"text": "dlg.photo.hello", "choices": [{"text": "dlg.photo.ask_spots", "next": "spots"}, {"text": "dlg.common.bye", "action": {"type": "end"}}]},
+        "spots": {"text": "dlg.photo.spots"}
+      }
+    },
+    "night_owl": {
+      "start": "hello",
+      "nodes": {
+        "hello": {"text": "dlg.owl.hello", "choices": [{"text": "dlg.owl.ask_where", "next": "where"}, {"text": "dlg.common.bye", "action": {"type": "end"}}]},
+        "where": {"text": "dlg.owl.where"}
+      }
     }
   }
 }

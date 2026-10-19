@@ -9,6 +9,8 @@ import type { DialogueAction, XZ } from './core/types';
 import { NavGraph } from './nav/navgraph';
 import { RouteGuide } from './nav/route';
 import { NpcManager } from './npc/npcs';
+import { WalkerManager } from './npc/walkers';
+import { Wildlife } from './world/wildlife';
 import { ThirdPersonCamera } from './player/camera';
 import { Player } from './player/player';
 import { BuildingInfo } from './ui/buildingInfo';
@@ -103,6 +105,13 @@ async function main() {
   const clock = new GameClock(cfg.clock);
   const npcs = new NpcManager(data, clock, nav, scene, isWalkable);
   npcs.refresh(true);
+  // 路人（npcs/crowd.json 有外觀清單、game.json 有 walkers 設定才放）
+  const walkers = data.crowd && cfg.walkers
+    ? new WalkerManager(cfg.walkers, data.crowd, nav, data.world.roads, scene, clock, isWalkable, (x, z) => world.collision.heightAt(x, z), isTouchDevice)
+    : null;
+  const camForward = new THREE.Vector3();
+  // 水池裡的鴨子、烏龜
+  const wildlife = new Wildlife(data.wildlife, data.world.areas, scene, data.style.water);
   const route = new RouteGuide(nav, scene, data.style.route, cfg.navigation.arrowSpacing, cfg.navigation.arriveDistance, -11);
 
   // ---------- 動作（傳送、導航） ----------
@@ -280,6 +289,12 @@ async function main() {
       camera.lookAt(v.target);
     } else camRig.update(dt, input, player.position);
     npcs.update(dt, player.xz, cfg.npc.interactDistance);
+    if (walkers) {
+      camera.getWorldDirection(camForward);
+      const fl = Math.hypot(camForward.x, camForward.z) || 1;
+      walkers.update(dt, player.xz, [camForward.x / fl, camForward.z / fl]);
+    }
+    wildlife.update(dt, player.xz);
     route.update(dt, player.xz);
     updateSky();
 

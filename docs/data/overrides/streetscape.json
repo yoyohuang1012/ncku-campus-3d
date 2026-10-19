@@ -5,6 +5,9 @@
     {"road": "北門路一段", "kind": "palm", "spacing": 16, "offset": 9, "replace": true, "within": {"lat": 22.9971, "lon": 120.2120, "radius": 70}, "_ref": "同上"}
   ],
   "alignProps": {"kinds": ["bus_shelter", "bus_stop"], "maxDistance": 25},
+  "parkingLots": [
+    {"area": "osm-w1491237651", "kind": "scooter", "spacing": 0.95, "depth": 1.85, "inset": 0.3, "fill": 0.85, "_ref": "國土測繪中心 2023 航照＋使用者說明：社會科學院南側樹下、沿東側小路的 L 形機車停車區（OSM 停車場）；停車比例推估"}
+  ],
   "_comment": [
     "沿校區邊界自動產生紅磚圍牆與兩排樹（Google 街景：光復校區四周都是紅磚圍牆，人行道與牆內都有大樹）。",
     "region：world.json 的校區 id；streets：只在這些街道旁產生（名稱開頭比對）",
@@ -14,6 +17,7 @@
     "樹會自動避開車道、建築與既有的樹；wall.kind 對應 config/style.json 的 barriers 顏色（省略＝wall 紅磚）",
     "同一校區各街道圍牆不同時，可以寫多筆同 region 的 perimeter，各自列 streets",
     "wall.openings：OSM 沒畫到的出入口或開放廣場，[{lat, lon, width}]，width 公尺範圍內不蓋牆",
+    "parkingLots：停車場自動停滿機車（沿每條夠長的邊往內排一列、車頭朝邊），area 是停車場 id，fill 是有停車的比例",
     "furniture：校區內自動擺設施。streetLamps 外圍人行道路燈（懸臂朝街）、pathLamps 沿 kinds 道路兩側交錯的步道燈、benches 沿 kinds 步道的座椅（面向步道，每 binEvery 張放一組垃圾桶）",
     "canopy：依航照綠色比例在校區內補樹（避開建築、車道與既有的樹）。spacing 取樣間距、radius 量綠色比例的半徑、minGreen 門檻 0~1"
   ],
