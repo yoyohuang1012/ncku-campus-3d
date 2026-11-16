@@ -1,8 +1,8 @@
 {
   "_comment": "遊戲手感與畫質設定。全部可以直接調整，不需要改程式。",
   "player": {
-    "walkSpeed": 5.5,
-    "runSpeed": 11,
+    "walkSpeed": 8,
+    "runSpeed": 16,
     "radius": 0.35,
     "turnSpeed": 10,
     "model": null
