@@ -70,7 +70,8 @@ export function createCharacter(a: Appearance): CharacterRig {
 /** 依移動速度擺動手腳；speed 單位 m/s */
 export function animateWalk(rig: CharacterRig, speed: number, dt: number) {
   const moving = speed > 0.1;
-  rig.phase += dt * (moving ? 2.2 + speed * 1.3 : 0);
+  // 擺動頻率到 11 m/s 為止，再快就只加大步伐感，手腳不會抖成一團
+  rig.phase += dt * (moving ? 2.2 + Math.min(speed, 11) * 1.3 : 0);
   const amp = moving ? Math.min(0.9, 0.25 + speed * 0.12) : 0;
   const s = Math.sin(rig.phase);
   const k = Math.min(1, dt * 12);
