@@ -1,7 +1,8 @@
 // 搜尋：建築（含別名）、地點、校區、教室代碼。選取後可導航或傳送。
 import type { GameData } from '../core/data';
 import { t } from '../core/i18n';
-import type { Building, XZ } from '../core/types';
+import type { Building, Room, XZ } from '../core/types';
+import { floorLabel } from './buildingInfo';
 import { button, el } from './dom';
 
 export interface SearchEntry {
@@ -11,6 +12,8 @@ export interface SearchEntry {
   points: XZ[];
   rank: number;
   building?: Building;
+  /** 這棟的教室；搜尋教室代碼時用來標出是哪一間、在幾樓 */
+  rooms?: Room[];
 }
 
 const norm = (s: string) => s.toLowerCase().replace(/[\s()（）｜|]/g, '').replaceAll('臺', '台');
@@ -34,6 +37,7 @@ export function buildSearchIndex(data: GameData): SearchEntry[] {
       points: [...pts],
       rank: detailOf(b.region) === 'full' ? 0 : b.region === 'outside' ? 2 : 1,
       building: b,
+      rooms: b.rooms,
     });
   }
   for (const p of data.world.pois) {
@@ -107,7 +111,13 @@ export class SearchPanel {
       const row = el('div', 'search-item', undefined, this.list);
       const main = button('search-item-main', '', () => { this.close(); this.handlers.onNavigate(e); }, row);
       el('div', 'search-item-name', e.name, main);
-      if (e.sub) el('div', 'search-item-sub', e.sub, main);
+      // 用教室代碼找到的，標出符合的教室與樓層（代碼開頭相符的排前面，最多列三間）
+      const rooms = (e.rooms ?? [])
+        .filter((r) => norm(r.code).includes(q))
+        .sort((a, b) => Number(!norm(a.code).startsWith(q)) - Number(!norm(b.code).startsWith(q)));
+      const roomText = rooms.slice(0, 3).map((r) => (r.floor ? `${r.code}（${floorLabel(r.floor)}）` : r.code)).join('、') + (rooms.length > 3 ? '…' : '');
+      const sub = [e.sub, roomText].filter(Boolean).join(' · ');
+      if (sub) el('div', 'search-item-sub', sub, main);
       button('search-item-btn', t('ui.navigate'), () => { this.close(); this.handlers.onNavigate(e); }, row);
       button('search-item-btn secondary', t('ui.teleport'), () => { this.close(); this.handlers.onTeleport(e); }, row);
     }

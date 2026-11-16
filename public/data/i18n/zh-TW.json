@@ -22,7 +22,7 @@
   "hud.date": "{month}/{day}（{weekday}）",
 
   "ui.search": "搜尋",
-  "ui.search.placeholder": "搜尋建築、系館、地點…",
+  "ui.search.placeholder": "搜尋建築、地點、教室代碼…",
   "ui.search.empty": "找不到符合的地點",
   "ui.navigate": "導航",
   "ui.teleport": "傳送",
@@ -42,6 +42,9 @@
   "ui.run": "跑步",
   "ui.dialogue.end": "結束",
   "ui.building.levels": "{levels} 層樓",
+  "ui.building.floor": "{floor}F",
+  "ui.building.floor_basement": "B{floor}",
+  "ui.building.floor_unknown": "—",
   "ui.building.unnamed": "未命名建築",
   "ui.building.rooms": "教室",
   "ui.building.no_rooms": "教室資料整理中",
